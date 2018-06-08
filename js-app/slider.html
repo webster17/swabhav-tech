@@ -1,0 +1,43 @@
+<!DOCType html>
+<html>
+    <head>
+        <title>Slider</title>
+        <style>
+            button{
+                margin: 2px;   
+            }
+            body {
+                font-family: 'Myriad-Pro', 'myriad', helvetica, arial, sans-serif;
+                text-align: center;
+            }
+            input { font-size: 14px; font-weight: bold;  }
+            
+            input[type=range]:before { content: attr(min); padding-right: 5px; }
+            input[type=range]:after { content: attr(max); padding-left: 5px;}
+            
+            output { 
+                display: block;
+                font-size: 5.5em;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div style="float:left;">
+                <label>Range Picker:</label>
+            </div>
+            <div style="float:left; height:10px; width:50px;"></div>
+            <div style="float:left;">
+                <input id="range-bar" type="range" min="1" max="100" value="10">
+            </div>
+            <div style="float:left; height:10px; width:50px;"></div>
+            <div style="float:left;" id="range-value"></div>
+        </div>
+        <div style="height:50px; width: 100px;"></div>
+        <div id="button-box">
+        </div>
+        
+        <script src="js/slider.js"></script>
+    </body>
+</html>

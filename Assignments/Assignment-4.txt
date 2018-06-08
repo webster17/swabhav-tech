@@ -1,0 +1,30 @@
+1.	Understan Interface.
+		- An interface in java is a blueprint of a class. It has static constants and abstract methods.
+		- The interface in java is a mechanism to achieve abstraction. There can be only abstract methods in the java interface not method body. It is used to achieve abstraction and multiple inheritance in Java.
+		- Java Interface also represents IS-A relationship.
+		- It cannot be instantiated just like abstract class.
+
+		Why use Java interface?
+		There are mainly three reasons to use interface. They are given below.
+		- It is used to achieve abstraction.
+		- By interface, we can support the functionality of multiple inheritance.
+		- It can be used to achieve loose coupling.
+
+		Note:
+		- The java compiler adds public and abstract keywords before the interface method. 
+		- It adds public, static and final keywords before data members.
+
+
+3.	Understand DDD(Deadly Diamond of Death).
+
+
+
+2. 	Implement example with interface.
+
+4.	Implement Simple Inheritance.
+
+5.	Implement Multiple Inheritance using interface.
+
+6.	Create one app to add & display all strudent record ny using concept of OOAD.
+
+7.	Read OOAD headout's 1st chapter.

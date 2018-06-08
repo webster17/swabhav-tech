@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Callback function</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script>
+        var balance = 1000;
+
+        function deposit(amount, functionNotify){
+            balance = balance+amount;
+            console.log("Current balance is after deposit: "+balance);
+            functionNotify(balance);
+        }
+
+        deposit(100, function(currentBalance){
+            console.log("Your current balance is: "+currentBalance);
+        })
+
+        deposit(200, notify);
+         
+        function notify(currentBalance){
+            console.log("Your current balance is: "+currentBalance);
+        }
+    </script>
+    <script>
+        window.setTimeout(function(){
+            console.log("In setTimeout Callback function");
+        }, 5000);
+        console.log("End of the script");
+
+        // window.setInterval(function(){
+        //     console.log("It's going to call at every second");
+        // }, 1000);
+    </script>
+</body>
+</html>

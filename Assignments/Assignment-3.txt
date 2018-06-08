@@ -1,0 +1,79 @@
+1.	Write a prgram on reading from file & write on a  new file.
+2.	WAP to display class details like total no of fields, methods, getters, setters, constructors.
+3.	WAP for Annotations.
+4.	WAP to build resume by creating resume.html file.
+5.	WAP to build your own unchecked exception.
+6.	WAP to Serialization and Deserialization.
+7.	Read chapter 14th and 16th.
+
+8.	What is annotations?
+		Java Annotation is a tag that represents the metadata i.e. attached with class, interface, methods or fields to indicate some additional information which can be used by java compiler and JVM. Annotations in java are used to provide additional information, so it is an alternative option for XML and java marker interfaces.
+
+		Built-In Java Annotations used in java code
+		-	@Override	:	@Override annotation assures that the subclass method is overriding the parent class method. If it is not so, compile time error occurs.
+		-	@SuppressWarnings	:	@SuppressWarnings annotation: is used to suppress warnings issued by the compiler.
+		-	@Deprecated	:	@Deprecated annoation marks that this method is deprecated so compiler prints warning. It informs user that it may be removed in the future versions.
+
+		Built-In Java Annotations used in other annotations
+		-	@Target	-	@Target tag is used to specify at which type, the annotation is used.		
+		-	@Retention	-	@Retention annotation is used to specify to what level annotation will be available.
+		-	@Inherited	-	By default, annotations are not inherited to subclasses. The @Inherited annotation marks the annotation to be inherited to subclasses.
+		-	@Documented	-	The @Documented Marks the annotation for inclusion in the documentation.
+
+		Java Custom Annotation : Java Custom annotations or Java User-defined annotations are easy to create and use. The @interface element is used to declare an annotation.
+		Syntax:	@interface MyAnnotation{}  
+
+		There are few points that should be remembered by the programmer for java custom annotation signature:
+		-	Method should not have any throws clauses
+		-	Method should return one of the following: primitive data types, String, Class, enum or array of these data types.
+		-	Method should not have any parameter.
+		-	We should attach @ just before interface keyword to define annotation.
+		-	It may assign a default value to the method.
+
+		Types of annotations:
+		-	Marker Annotations:	An annotation that has no method, is called marker annotation.
+			Syntax:	@interface MyAnnotation{} 
+
+		-	Single-Value Annotation:	An annotation that has one method, is called single-value annotation.
+			Syntax:	//First Example
+							@interface MyAnnotation{  
+								int value() default 0;  
+							}
+
+							//Second Example
+							@MyAnnotation(value=10) 
+
+		-	Multi-Value Annotation:	An annotation that has more than one method, is called Multi-Value annotation.
+				Synatax:	//First Example
+									@interface MyAnnotation{
+										int value1() default 1;  
+										String value2() default "";
+										String value3() default "xyz";  
+									}
+
+									//Second Example
+									@MyAnnotation(value1=10,value2="Arun Kumar",value3="Ghaziabad")
+
+
+9.	What is checked and unchecked exception?
+		Checked:	are the exceptions that are checked at compile time. If some code within a method throws a checked exception, then the method must either handle the exception or it must specify the exception using throws keyword.
+
+		Unchecked:	are the exceptions that are not checked at compiled time. In C++, all exceptions are unchecked, so it is not forced by the compiler to either handle or specify the exception. It is up to the programmers to be civilized, and specify or catch the exceptions. In Java exceptions under Error and RuntimeException classes are unchecked exceptions, everything else under throwable is checked.
+
+										+-----------+
+		   							| Throwable |
+                   	+-----------+
+                     /         \
+		   							/           \
+          			+-------+    +-----------+
+          			| Error |    | Exception |
+          			+-------+    +-----------+
+	   						 /  |  \      / |        \
+         			 \________/	  \______/    	 \
+			                								+------------------+
+							 unchecked	  checked		| RuntimeException |
+																			+------------------+
+					  													 /   |    |      \ 	
+					 														\_________________/
+					   
+					   																unchecked

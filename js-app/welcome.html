@@ -1,0 +1,56 @@
+<!DOCType html>
+<html>
+    <head>
+        <title>First form</title>
+    </head>
+    <body>
+        <div>
+            <div style="float:left;">
+                <label>Name:</label>
+            </div>
+            <div style="float:left; height:10px; width:50px;"></div>
+            <div style="float:left;">
+                <input type="text" id="name" placeholder="Enter your name here" onkeyup="printName(event);" autofocus>
+            </div>
+            <div style="float:left; height:10px; width:50px;"></div>
+            <div style="float:left;">
+                <input type="button" id="submit" value="Add into List" onclick="appendIntoList();">
+            </div>
+        </div>
+        <div style="height:100px; width: 100px;"></div>
+        <div >
+            <div style="float:left;">Entered name:</div>
+            <div style="margin-left: 20px; float: left;" id="display-name"></div>
+        </div>
+        <div style="height:50px; width: 100px;"></div>
+        <div>
+                <div style="float:left">List of Entered name:</div>
+                <div style="margin-left: 20px; float: left;" id="display-entered-name"></div>
+            </div>
+        <script>
+            function printName(event){
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    document.getElementById("submit").click();
+                }else{
+                    var nameTextBox = document.getElementById("name");
+                    var currentEnteredName = document.getElementById("display-name");
+                    currentEnteredName.innerHTML = nameTextBox.value;
+                }
+            }
+
+            function appendIntoList(){
+                var nameTextBox = document.getElementById("name");
+                var currentEnteredName = document.getElementById("display-name");
+                
+                var node = document.createElement("DIV");
+                var textnode = document.createTextNode(nameTextBox.value);
+                node.appendChild(textnode);
+                document.getElementById('display-entered-name').prepend(node);
+                nameTextBox.value="";
+                currentEnteredName.innerHTML="";
+                nameTextBox.focus();
+            }
+        </script>
+    </body>
+</html>

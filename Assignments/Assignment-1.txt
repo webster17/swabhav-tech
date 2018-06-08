@@ -1,0 +1,118 @@
+1.	What is version control and enlist softwares that provides version control?
+		Version control systems are a category of software tools that help a software team manage changes to source code over time. Version control software keeps track of every modification to the code in a special kind of database. If a mistake is made, developers can turn back the clock and compare earlier versions of the code to help fix the mistake while minimizing disruption to all team members.
+
+		Softwares for version control:
+		-	ArX – written by Walter Landry, started as a fork of GNU arch, but has been completely rewritten
+		-	Bazaar – written in Python, originally by Martin Pool and sponsored by Canonical; decentralised, and aims to be fast and easy to use; can losslessly import Arch archives
+		-	BitKeeper – was used in Linux kernel development (2002 – April 2005) until its license was revoked for breach of contract. It was open-sourced in 2016 in an attempt to broaden its appeal again.
+		-	Codeville – written in Python originally by Ross Cohen; uses an innovative merging algorithm
+		-	Darcs – written in Haskell and originally developed by David Roundy; can keep track of inter-patch dependencies and automatically rearrange and "cherry-pick" them using a "theory of patches"
+		-	DCVS – decentralized and CVS-based
+		-	Fossil – written by D. Richard Hipp for SQLite; distributed revision control, wiki, and bug-tracking (all-in-one solution) with console and web interfaces. Single portable executable and single repository file.
+		-	Git – written in a collection of Perl, C, and various shell scripts, designed by Linus Torvalds based on the needs of the Linux kernel project; decentralized, and aims to be fast, flexible, and robust
+		-	GNU arch
+		-	Mercurial – written in Python as an Open Source replacement to BitKeeper; decentralized and aims to be fast, lightweight, portable, and easy to use
+		-	Monotone – developed by the Monotone Team; decentralized in a peer-to-peer way
+		-	SVK – written in Perl by Kao Chia-liang; built on top of Subversion to allow distributed commits 
+		-	Veracity - Is another distributed version control system which includes bug tracking and Agile software development tools integrated with the version control features.
+
+2.	Difference between public and private repository
+		A public repository is one where the code it contains is available for anyone in the world to browse, download, clone, and/or use. Also the Wiki and Issue Tracker for the repo will be visible to the public as well. 
+		A private repository is one where you control which Bitbucket users are allowed to see and/or clone the code. You can also make the Wiki and Issue Tracker private.
+		E.g.
+			Public: Other public repos you've cloned and are working on. Any opensource projects you may have started or are contributing to.
+			Private: A project which isn't yet ready for consumption by the public. A project which is for your business and the code for which you want to keep proprietary.
+
+3.	Enlist Source control repository provider
+		- Bitbucket: A free repository for small projects
+		- ProjectLocker
+		- CloudForge
+		- GitHub: A popular source control system, integrated with Bitbucket.
+		- SourceForge
+		- Google Code
+		- CodeBase
+		- Jenkins free
+		- SourceTree: A user-friendly GUI that works with Git and Bitbucket. 
+
+4.	What is immutable?
+		unchanging over time or unable to be changed.
+		Immutable means that once the constructor for an object has completed execution that instance can't be altered. This is useful as it means you can pass references to the object around, without worrying that someone else is going to change its contents. Especially when dealing with concurrency, there are no locking issues with objects that never change
+
+5.	Why String class are immutable?
+		In java, string objects are immutable. Immutable simply means unmodifiable or unchangeable.
+		Once string object is created its data or state can't be changed but a new string object is created.
+		Eg.
+			SourceCode:
+				class Testimmutablestring{  
+ 					public static void main(String args[]){  
+ 					  String s="Sachin";  
+ 					  s.concat(" Tendulkar");//concat() method appends the string at the end  
+ 					  System.out.println(s);//will print Sachin because strings are immutable objects  
+ 					}  
+				}  
+			Output:
+				Sachin
+
+6.	What is Clean coding? and why we need it?
+		"Clean code is code that is easy to understand and easy to change.""
+		Clean code is subjective and every developer has a personal take on it. There are some ideas that are considered best practice and what constitutes as clean code within the industry and community, but there is no definitive distinction.
+
+		Easy to understand means the code is easy to read, whether that reader is the original author of the code or somebody else. It’s meaning is clear so it minimizes the need for guesswork and possibility for misunderstandings. It is easy to understand on every level, specifically:
+		-	It is easy to understand the execution flow of the entire application
+		-	It is easy to understand how the different objects collaborate with each other
+		-	It is easy to understand the role and responsibility of each class
+		-	It is easy to understand what each method does
+		-	It is easy to understand what is the purpose of each expression and variable
+
+		Easy to change means the code is easy to extend and refactor, and it’s easy to fix bugs in the codebase. This can be achieved if the person making the changes understands the code and also feels confident that the changes introduced in the code do not break any existing functionality. For the code to be easy to change:
+		-	Classes and methods are small and only have single responsibility
+		-	Classes have clear and concise public APIs
+		-	Classes and methods are predictable and work as expected
+		-	The code is easily testable and has unit tests (or it is easy to write the tests)
+		-	Tests are easy to understand and easy to change
+
+		Clean code is code that has been taken care of. Someone has taken the time to keep it simple and orderly. They have paid appropriate attention to details. They have cared.” But why should you care? What’s wrong with code that just works?
+		
+		You should care because code is (almost) never written just once and then forgotten. Most of the time you, or someone else, need to work on the code. And to be able to work on it efficiently you need to understand the code.
+		And because people need to understand the code we write, we can say that the code we write is not intended only for the computer but also for humans.
+		"Programming is the art of telling another human what one wants the computer to do."
+
+		Top 9 Qualities of clean code:
+		-	Bad code does too much – Clean code is focused
+				A functional unit on a given level of abstraction should only be responsible for a single aspect of a system’s requirements. An aspect of requirements is a trait or property of requirements, which can change independently of other aspects.
+		-	The language you wrote your code with should look like it was made for the problem
+				It is not the language that makes a program look simple, but the programmer who makes the language appear simple.
+		-	It should not be redundant
+		- Reading your code should be pleasant
+		- Can be easily extended by any other developer
+		- It should have minimal dependencies
+		- Smaller is better
+		- It should have unit and acceptance tests
+		- It should be expressive
+
+7. 	what is reflection
+		Java Reflection makes it possible to inspect classes, interfaces, fields and methods at runtime, without knowing the names of the classes, methods etc. at compile time. It is also possible to instantiate new objects, invoke methods and get/set field values using reflection.
+
+8.	Make program using both substring and split overload to display domain & argument from following string "http://www.swabhavtechlab.com?student=santosh"
+		Program using SplitOverload:
+			public class SplitOverload {
+				public static void main(String str[]) {
+					String[] s = str[0].split("\\.", 3);
+					System.out.println("Domain name is: " + s[1]);
+					s = str[0].split("=");
+					System.out.println("Argument name is: " + s[1]);
+				}
+			}
+
+		Program using SubStringOverload:
+			public class SubStringOverload {
+				public static void main(String str[]){
+					String s = str[0];
+					System.out.println("Domain name is: "+s.substring(s.indexOf('.')+1, s.lastIndexOf('.')));
+					System.out.println("Argument name is: "+s.substring(s.indexOf('=')+1));
+				}
+			}
+
+9.	Class diagram for Object.java classes. which contains all access specifiers with the packages.
+
+10.	Understand 5 chapters from java edition Head First.

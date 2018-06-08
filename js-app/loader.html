@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid blue;
+            border-right: 5px solid green;
+            border-bottom: 5px solid red;
+            border-left: 5px solid pink;
+            width: 50px;
+            height: 50px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <center>
+            <div style="top:10em; position: relative;">
+                <input type="button" id="load-data" value="Load Data">
+            </div>
+            <div style="position: relative; top:12em;" id="content">
+            </div>
+        </center>
+    </main>
+
+    <script>
+        "use strict";
+        (function(){
+            var loaderButton = document.getElementById('load-data');
+            var mainContent = document.getElementById('content');
+
+            loaderButton.addEventListener('click', showLoader);
+
+            function showLoader(){
+                var loader = document.createElement('div');
+                loader.setAttribute("class", "loader");
+                mainContent.innerHTML = "";
+                mainContent.append(loader);
+
+                setTimeout(function(){
+                    mainContent.innerHTML = "";
+                    mainContent.append("Data is loaded from an API.");
+                },3000)
+            }
+        })();
+    </script>
+    
+</body>
+</html>

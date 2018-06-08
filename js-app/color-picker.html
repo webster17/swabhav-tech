@@ -1,0 +1,33 @@
+<!DOCType html>
+<html>
+    <head>
+        <title>Color Picker</title>
+    </head>
+    <body>
+        <div>
+            <div style="float:left;">
+                <label>Name:</label>
+            </div>
+            <div style="float:left; height:10px; width:50px;"></div>
+            <div style="float:left;">
+                <select id="color-picker">
+                    <option value="white">Select color</option>
+                    <option value="orange">red</option>
+                    <option value="lightgreen">green</option>
+                    <option value="lightblue">blue</option>
+                </select>
+            </div>
+        </div>
+        
+        <script>
+            document.getElementById("color-picker").addEventListener("change", changeColor);
+
+            function changeColor(){
+                var colorPicker = document.getElementById("color-picker");
+                var color = colorPicker.options[colorPicker.selectedIndex].value;
+                document.bgColor=color;
+                console.log(document.bgColor);
+            }
+        </script>
+    </body>
+</html>

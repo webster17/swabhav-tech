@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajax - XMLHttpRequest</title>
+    </head>
+<body>
+
+<div style="height:12em;">
+    <h1>The XMLHttpRequest Object</h1>
+    <button type="button" onclick="loadDoc()">Load Content</button>
+    <button type="button" onclick="clearContent()">Clear Content</button>
+</div>
+<div id="content">
+</div>
+
+<script>
+    
+    var content = document.getElementById('content');
+
+    function loadDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                content.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "resources/ajax-info.txt", true);
+        xhttp.send();
+    }
+
+    function clearContent(){
+        content.innerHTML = "";
+    }
+</script>
+
+</body>
+</html>

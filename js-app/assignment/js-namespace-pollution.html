@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Javascript namespace pollution</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        div.content{
+            float: left;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="content">Function with 2 argument: </div>
+        <div class="content" id="name1"></div>
+    </div>
+    <br>
+    <div>
+        <div class="content">Function with 3 argument: </div>
+        <div class="content"id="name2"></div>
+    </div>
+
+    <script>
+        name1 = document.getElementById('name1');
+        name2 = document.getElementById('name2');
+
+        function customer(firstName, lastName){
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.getFullName= function(){
+                return this.firstName+" "+this.lastName;
+            }
+        }
+
+        function customer(firstName, middleName, lastName){
+            this.firstName = firstName;
+            this.middleName = middleName;
+            this.lastName = lastName;
+            this.getFullName= function(){
+                return this.firstName+" "+this.middleName+" "+this.lastName;
+            }
+        }
+
+        name1.innerHTML = new customer("Santosh", "Dangodra").getFullName();
+        name2.innerHTML = new customer('Santosh', 'B', 'Dangodra').getFullName();
+    </script>
+</body>
+</html>

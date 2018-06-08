@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .row{
+            width:100%;
+            height:50px;
+        }
+        .container{
+            float: left;
+            margin-right: 8%;
+        }
+        div.container:last-child{
+            margin-right: 0%;
+        }
+        .ball{
+            float: left;
+            height: 35px;
+            width: 35px;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 50%;
+            background-color: blueviolet;
+            display: block;
+        }
+        .bucket{
+            top:10em;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="container">
+            
+            <button class="game-start" id="game-start">Start Game</button>
+        </div>
+        <div class="container">
+            <button class="game-reset" id="game-reset">Reset Game</button>
+        </div>
+        <div class="container">
+            Attempt: <label class="game-attempt" id="game-attempt"></label>
+        </div>
+        <div class="container">
+            Score: <label class="game-score" id="game-score"></label>
+        </div>
+        <div class="container">
+            Heighest-Score: <label class="game-heighest-score" id="game-heighest-score"></label>
+        </div>
+    </div>
+    <br>
+    <section class="bucket">
+    <div class="row" id="ball-bucket">
+    </div>
+    </section>
+    
+    <script>
+        "use strict";
+        (function(){
+
+            var gameStart = document.getElementById('game-start');
+            var gameReset = document.getElementById('game-reset');
+            var gameAttempt = document.getElementById('game-attempt');
+            var gameScore = document.getElementById('game-score');
+            var gameHeighestScore = document.getElementById('game-heighest-score');
+            var ballBucket = document.getElementById('ball-bucket');
+            var randomBall = 0;
+            var attempt = 5;
+            var score =0;
+
+            if (localStorage.getItem("heighestScore") === null) {
+                localStorage.setItem('heighestScore', 0);
+            }
+            
+            var heighestScore = localStorage.getItem('heighestScore');
+
+            gameStart.addEventListener('click', gameInitialize);
+            gameReset.addEventListener('click', gameInitialize);
+
+            gameHeighestScore.innerHTML = heighestScore;
+            gameScore.innerHTML = 0;
+            gameAttempt.innerHTML = 5;  
+            
+            function gameInitialize(){
+                
+                attempt = 5;
+                score =0;
+                ballBucket.innerHTML = "";
+                for (var i = 0; i < 50; i++) {
+                    var ball = document.createElement('BUTTON');
+                    var textNode = document.createTextNode(i+1);
+                    ball.setAttribute('class', 'ball');
+                    ball.value=i+1;
+                    ball.addEventListener('click', checkChoice);
+                    ball.appendChild(textNode);
+                    ballBucket.append(ball);
+
+                }
+
+                gameHeighestScore.innerHTML = heighestScore;
+                gameScore.innerHTML = 0;
+                gameAttempt.innerHTML = 5;            
+                randomBall = Math.round((Math.random() * 100000000000000)%50);
+                console.log(randomBall);
+
+            }
+
+            function checkChoice(){                
+                score+=1;
+                gameScore.innerHTML=score;
+                if(this.value == randomBall){
+                    this.setAttribute('style','background-color:yellow;');
+                    if(score< heighestScore){
+                        heighestScore=score;
+                        localStorage.setItem('heighestScore', score);
+                        gameHeighestScore.innerHTML=score;
+                    }else{
+                        gameScore.innerHTML=score;
+                    }
+                    ballBucket.innerHTML = "<h2>You won at attempt: "+score+"</h2>";
+                    setTimeout(gameInitialize,5000);
+                }
+                else{
+                    if(this.value< randomBall){
+                        this.setAttribute('style','background-color:red;');
+                    }
+                    else{
+                        this.setAttribute('style','background-color:green;');
+                    }
+                    
+                    attempt-=1;
+                    if(attempt == 0){                    
+                        ballBucket.innerHTML = "<h2>You Loss!<h2><br><h4>Try again!<h4>";
+                        setTimeout(gameInitialize,5000);
+                    }else{
+                        gameAttempt.innerHTML = attempt;
+                    }
+                }
+            }
+
+        })();
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Web Storage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <table>
+        <thead>
+                <th>Key</th>
+                <th>Value</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>name</td>
+                <td id="name"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        if (typeof(Storage) !== "undefined") {
+            name = document.getElementById('name');
+
+            localStorage.setItem("name", "Santosh Dangodra");   //Store
+            name.innerHTML = localStorage.getItem("name");  // Retrieve
+            localStorage.removeItem("name");    //remove
+        } else {
+            document.write("Sorry! No Web Storage support..");
+        }
+
+        function localStorageClick(){
+            if(typeof(Storage) !== "undefined") {
+                if (sessionStorage.clickcount) {
+                    sessionStorage.clickcount = Number(sessionStorage.clickcount)+1;
+                } else {
+                    sessionStorage.clickcount = 1;
+                }
+            }else{
+                
+            }
+        }
+    </script>
+    
+</body>
+</html>

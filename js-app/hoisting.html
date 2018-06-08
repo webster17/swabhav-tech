@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hoisting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script>
+        "use strict"
+        function f1(){
+            console.log("In function f1");
+             
+
+            console.log("Counter oute side loop: "+counter);
+            //console.log("Counter oute side loop: "+count); //throw error
+            for (var counter = 1; counter <= 10; counter++) {
+                console.log(counter);
+            }
+
+            console.log("Counter oute side loop: "+counter);
+        }
+        f1();
+        
+        ///console.log("Counter out side funtion: "+counter);  //throw error
+        console.log("end of script");
+    </script>
+    <script>
+        //f2(); //throw error just because at runtime interpreter know f2 is a variable
+        var f2 = function(){
+            console.log("Inside f2");
+        }
+        f2();
+        f3();
+        function f3(){
+            console.log("insode f3");
+        }
+        f3();
+    </script>
+    <script>
+        var f4 = function(){
+            console.log("inside IIIFE1");
+        }();
+        
+        (function(){
+            console.log("inside IIIFE2");
+        }());
+
+        (function(){
+            console.log("inside IIIFE3");
+        })();
+    </script>
+</body>
+</html>

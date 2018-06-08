@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hoisting of functions and variable</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+        Hoisting is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution.
+        <br>
+        function expression and variable declaration are not hoisted.
+        <br><br>
+    <script>
+        var a = 10;
+        document.write(a+" is hoisted up");
+        document.write("<br>"+b+" is not hoisted up"+"<br>");
+        var b = 20;
+
+        printHello();
+        function printHello(){
+            return document.write("<br>Function is not hoisted up!");
+        }
+        printHello();
+
+        fnExpression();
+        var fnExpression = function(){
+            document.write("<br><br>Function hoisted up")
+        }
+
+        fnExpression();
+    </script>
+</body>
+</html>
