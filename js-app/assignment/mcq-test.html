@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MCQ Test</title>
+
+    <style>
+        section{
+            position: relative;;
+            padding: 5px 25px;
+            border:5px solid #191919;
+            display: inline-block;
+        }
+        .data{
+            height : auto;
+            padding: 4px;
+            margin: 3px;
+            text-align: left;
+            background-color: #cccccc;
+            border: 1px solid #b2b2b2;
+        }
+        .separator{
+            padding:10px;
+        }
+        .question,.option{
+            text-align: left;
+        }
+        h1{
+            margin:0px;
+            padding:0px;
+        }
+        .delete{
+            margin-left: 30px;
+            margin-top: -2px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <center>
+            <section>
+                <h1>Question Bank (MCQ Test)</h1>
+                <br>
+                <div class="question-list">
+                    <button id="start">Start Test</button>
+                </div>
+            </section>
+        </center>
+        <br>
+        <center>
+            <section style="border:5px solid #999999; display: none" id="action">
+                    <button id="submit">Submit Test</button>
+            </section>
+        </center>
+    </main>
+
+    <script>
+        "use strict";
+
+        (function(){
+
+           
+
+            var questionList = document.getElementById('question-list');
+            var start = document.getElementById('start');
+            var submit = document.getElementById('submit');
+            var action = document.getElementById('action');
+            var questionBankObj={};
+            var sequence = [];
+
+            start.addEventListener('click', startAttempt);
+            submit.addEventListener('click', submitAttempt);
+
+            function startAttempt(){
+                
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        questionBankObj = JSON.parse(this.responseText);
+                        generateRandomSequence(0,questionBankObj.length);
+                        generateQuestionBank();
+                        console.log(questionBankObj[2].options);
+                        for(var key in questionBankObj[2].options){
+                            console.log("12 "+questionBankObj[2].options.a);
+                        }
+                    }
+                };
+                xhttp.open("GET", "resources/question-bank.json", true);
+                xhttp.send();
+            }
+
+            function generateRandomSequence(start, end){
+                var random = Math.round((Math.random() * 100000)%(end-1));
+                if(sequence.length != end){
+                    var exist = 0;
+                    for(var i in sequence){
+                        if(sequence[i] == random){
+                            exist=1;
+                        }
+                    }
+                    if(exist == 0){
+                        sequence.push(random);
+                    }
+                    generateRandomSequence(0, end);
+                }
+            }
+             /*
+            <div class="seprator">
+                        <div class="question">Which among following first generation of computers had ?</div>
+                        <div class="options-bucket">
+                            <div class="option"><input type="radio" value="a" name="question1" />Vaccum Tubes and Magnetic Drum</div>
+                            <div class="option"><input type="radio" value="b" name="question1" />Vaccum Tubes and Magnetic Drum</div>
+                            <div class="option"><input type="radio" value="c" name="question1" />Vaccum Tubes and Magnetic Drum</div>
+                            <div class="option"><input type="radio" value="d" name="question1" />Vaccum Tubes and Magnetic Drum</div>
+                        </div>
+                    </div>
+            */
+
+            function generateQuestionBank(){
+                for(var i in sequence){
+                    var separatorNode = document.createElement('DIV');
+                    separatorNode.setAttribute('class', 'separator');
+
+                    var questionNode = document.createElement('DIV');
+                    var questionTextNode = document.createTextNode(questionBankObj[i].question);
+
+                    var optionBucketNode = document.createElement('DIV');
+                    optionBucketNode.setAttribute('class', 'options-bucket');
+
+                    //for(var )
+
+                    
+                    console.log(questionBankObj[0].question);
+                }
+            }
+
+            function submitAttempt(){
+                return 1;
+            }
+
+            /*
+            var dataList = document.getElementById('data-list');
+            var data=[];
+            if (typeof(Storage) !== "undefined") {
+
+                if (localStorage.getItem("dataItem") !== null){
+                    data = JSON.parse(localStorage.getItem('dataItem'));
+                    for(var i in data){
+                        displayList(data[i]);
+                    }
+                }
+            } else {
+                document.write("Sorry! No Web Storage support..");
+            }
+
+            listName.addEventListener('keyup', checkPressedKey, true);
+
+            function checkPressedKey(){
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    insertData();
+                }
+            }
+
+            function insertData(){
+                var exist = 0;
+                for(var i in data){
+                    if(listName.value == data[i])
+                        exist = 1;
+                }
+
+                if(exist){
+                    alert("Data is already exist!");
+                } else{
+                    data.push(listName.value);
+                    displayList(listName.value);
+                    localStorage.setItem('dataItem', JSON.stringify(data));
+                }
+                
+                listName.focus();
+            }
+
+            function displayList(dataListValue){
+
+                var spanNode = document.createElement('SPAN');
+                var textNode = document.createTextNode(dataListValue);
+                spanNode.appendChild(textNode);
+                
+                var buttonNode = document.createElement('BUTTON');
+                var buttonTextNode = document.createTextNode('X');
+                buttonNode.appendChild(buttonTextNode);
+                buttonNode.setAttribute('class', 'delete');
+                buttonNode.setAttribute('value', dataListValue);
+                buttonNode.addEventListener('click', deleteData);
+
+                var dataNode = document.createElement('DIV');
+                dataNode.setAttribute('class', 'data');
+                dataNode.appendChild(spanNode);
+                dataNode.appendChild(buttonNode);
+
+                dataList.prepend(dataNode);
+                listName.value = "";
+            }
+
+            function deleteData(){
+                var exist = 0;
+                for(var i in data){
+                    if(this.value == data[i]){
+                        exist = 1;
+                        this.parentElement.style.display='none';
+                        data.splice(i, 1);
+                        localStorage.setItem('dataItem', JSON.stringify(data));
+                    }
+                }
+                if(exist == 0){
+                    alert("Data is not exist!");
+                }
+                listName.focus();
+            }
+            */
+
+        })();
+    </script>
+</body>
+</html>

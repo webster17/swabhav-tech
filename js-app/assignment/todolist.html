@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDoList</title>
+
+    <style>
+        section{
+            position: relative;;
+            padding: 5px 25px;
+            border:5px solid #191919;
+            display: inline-block;
+        }
+        .data{
+            height : auto;
+            padding: 4px;
+            margin: 3px;
+            text-align: left;
+            background-color: #cccccc;
+            border: 1px solid #b2b2b2;
+        }
+        .delete{
+            margin-left: 30px;
+            margin-top: -2px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <center>
+            <section>
+                <input type="text" id="list-name" placeholder="Enter keyword..." autofocus>
+            </section>
+        </center>
+        <br>
+        <center>
+            <section style="border:5px solid #999999">
+                <div id="data-list">
+                </div>
+            </section>
+        </center>
+    </main>
+
+    <script>
+        "use strict";
+
+        (function(){
+
+            var listName = document.getElementById('list-name');
+            var dataList = document.getElementById('data-list');
+            var data=[];
+            if (typeof(Storage) !== "undefined") {
+
+                if (localStorage.getItem("dataItem") !== null){
+                    data = JSON.parse(localStorage.getItem('dataItem'));
+                    for(var i in data){
+                        displayList(data[i]);
+                    }
+                }
+            } else {
+                document.write("Sorry! No Web Storage support..");
+            }
+
+            listName.addEventListener('keyup', checkPressedKey, true);
+
+            function checkPressedKey(){
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    insertData();
+                }
+            }
+
+            function insertData(){
+                var exist = 0;
+                for(var i in data){
+                    if(listName.value == data[i])
+                        exist = 1;
+                }
+
+                if(exist){
+                    alert("Data is already exist!");
+                } else{
+                    data.push(listName.value);
+                    displayList(listName.value);
+                    localStorage.setItem('dataItem', JSON.stringify(data));
+                }
+                
+                listName.focus();
+            }
+
+            function displayList(dataListValue){
+
+                var spanNode = document.createElement('SPAN');
+                var textNode = document.createTextNode(dataListValue);
+                spanNode.appendChild(textNode);
+                
+                var buttonNode = document.createElement('BUTTON');
+                var buttonTextNode = document.createTextNode('X');
+                buttonNode.appendChild(buttonTextNode);
+                buttonNode.setAttribute('class', 'delete');
+                buttonNode.value= dataListValue;
+                buttonNode.addEventListener('click', deleteData);
+
+                var dataNode = document.createElement('DIV');
+                dataNode.setAttribute('class', 'data');
+                dataNode.appendChild(spanNode);
+                dataNode.appendChild(buttonNode);
+
+                dataList.prepend(dataNode);
+                listName.value = "";
+            }
+
+            function deleteData(){
+                var exist = 0;
+                for(var i in data){
+                    if(this.value == data[i]){
+                        exist = 1;
+                        this.parentElement.style.display='none';
+                        data.splice(i, 1);
+                        localStorage.setItem('dataItem', JSON.stringify(data));
+                    }
+                }
+                if(exist == 0){
+                    alert("Data is not exist!");
+                }
+                listName.focus();
+            }
+
+        })();
+    </script>
+</body>
+</html>

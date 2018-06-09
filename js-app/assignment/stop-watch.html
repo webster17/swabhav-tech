@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stop Watch</title>
+
+    <style>
+        section{
+            position: relative;;
+            padding: 10px 25px;
+            border:10px solid #191919;
+            display: inline-block;
+        }
+        .hour,.spacer,.minute,.second,.millisecond,.button{
+            float:left;
+            display: inline;
+        }
+        .hour,.minute,.second{
+            width:25px;
+        }
+        .millisecond{
+            width:35px;
+        }
+        .button:last-child{
+            margin-left: 10px;
+        }
+        h1{
+            margin: 0px;
+            margin-top: 5px;
+            padding: 0px;
+        }
+        h4{
+            margin: 0px;
+            margin-top: 12px;
+            padding: 0px;
+        }
+        .dot{
+            margin: 10px;
+            height: 4px;
+            width:4px;
+            border-radius:50%;
+            background-color: #3d3d3d;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <center>
+            <section>
+                <div class="hour">
+                    <h1 id="hour">00</h1>
+                </div>
+                <div class="spacer">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="minute">
+                    <h1 id="minute">00</h1>
+                </div>
+                <div class="spacer">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="second">
+                    <h1 id="second">00</h1>
+                </div>
+                <div class="millisecond">
+                    <h4 id="millisecond">00</h4>
+                </div>
+            </section>
+        </center>
+        <br>
+        <center>
+            <section style="border: 0px;">
+                <div class="button">
+                    <button id="start">Start</button>
+                </div>
+                <div class="button">
+                    <button id="pause" style="display: none">Pause</button>
+                </div>
+                <div class="button">
+                    <button id="reset">Reset</button>
+                </div>
+            </section>
+        </center>
+    </main>
+
+    <script>
+        "use strict";
+
+        (function(){
+
+            var hour = document.getElementById('hour');
+            var minute = document.getElementById('minute');
+            var second = document.getElementById('second');
+            var millisecond = document.getElementById('millisecond');
+            var start = document.getElementById('start');
+            var pause = document.getElementById('pause');
+            var reset = document.getElementById('reset');
+            var millisecondCounter = 0;
+            var millisecondInterval;
+            var h=0;
+            var m=0;
+            var s=0;
+
+            start.addEventListener('click', startWatch);
+            pause.addEventListener('click', pauseWatch);
+            reset.addEventListener('click', resetWatch);
+
+            function milliSecondIncremener(){
+                millisecond.innerHTML = millisecondCounter+=1;
+                if(millisecondCounter == 250){
+                    millisecondCounter = 0;
+                    s+=1;
+                    second.innerHTML = (s%60<=9)?"0"+s%60:s%60;
+                    if(s == 60){
+                        s=0;
+                        m+=1;
+                        minute.innerHTML = (m%60<=9)?"0"+m%60:m%60;
+                        if(m == 60){
+                            m=0;
+                            h+=1;
+                            hour.innerHTML = (h%12<=9)?"0"+h%12:h%12; 
+                        }
+                    }
+                }
+            }
+
+            function startWatch(){  
+                start.style.display = 'none';
+                pause.style.display = 'block';
+                millisecondInterval = window.setInterval(milliSecondIncremener, 0);
+            }
+
+            function pauseWatch(){
+                clearInterval(millisecondInterval);
+                pause.style.display = 'none';
+                start.textContent = 'Restart';
+                start.style.display = 'block';
+            }
+
+            function resetWatch(){
+                clearInterval(millisecondInterval);
+                pause.style.display = 'none';
+                start.textContent = 'Start';
+                start.style.display = 'block';
+                millisecondCounter=h=m=s=0;
+                millisecond.innerHTML = "00";
+                second.innerHTML = "00";
+                minute.innerHTML = "00";
+                hour.innerHTML = "00";
+            }
+
+        })();
+    </script>
+</body>
+</html>

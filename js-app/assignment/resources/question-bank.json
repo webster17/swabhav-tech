@@ -1,0 +1,56 @@
+[{
+		"id": "1",
+		"question": "WWW stands for ?",
+		"options": {
+			"a": "World Whole Web",
+			"b": "Wide World Web",
+			"c": "Web World Wide",
+			"d": "World Wide Web"
+		},
+		"answers": "d"
+	},
+	{
+		"id": "2",
+		"question": "Which of the following are components of Central Processing Unit (CPU) ?",
+		"options": {
+			"a": "Arithmetic logic unit, Mouse",
+			"b": "Arithmetic logic unit, Control unit",
+			"c": "Arithmetic logic unit, Integrated Circuits",
+			"d": "Control Unit, Monitor"
+		},
+		"answers": "b"
+	},
+	{
+		"id": "3",
+		"question": "Which among following first generation of computers had ?",
+		"options": {
+			"a": "Vaccum Tubes and Magnetic Drum",
+			"b": "Integrated Circuits",
+			"c": "Magnetic Tape and Transistors",
+			"d": "All of above"
+		},
+		"answers": "a"
+	},
+	{
+		"id": "4",
+		"question": "Where is RAM located ?",
+		"options": {
+			"a": "Expansion Board",
+			"b": "External Drive",
+			"c": "Mother Board",
+			"d": "All of above"
+		},
+		"answers": "c"
+	},
+	{
+		"id": "5",
+		"question": "If a computer has more than one processor then it is known as ?",
+		"options": {
+			"a": "Uniprocess",
+			"b": "Multiprocessor",
+			"c": "Multithreaded",
+			"d": "Multiprogramming"
+		},
+		"answers": "b"
+	}
+]
