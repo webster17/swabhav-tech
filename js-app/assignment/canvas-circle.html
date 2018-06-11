@@ -6,20 +6,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        canvas{
-            height:20em;
-            width:20em;
-            border:3px solid #454545;
-        }
     </style>
 </head>
 <body>
-    <center><canvas id="circle"></canvas></center>
+    <center><div style="padding: 0px; border: 3px solid black;"><canvas id="circle" height="600px" width="600px"></canvas></center>
 
     <script>
-        var circleCanvas = document.getElementById('circle');
-        var context = circleCanvas.getContext('2d');
-        
-    </script>
+        "use strict";
+
+        (function(){
+            
+
+            var circleCanvasElement = document.getElementById("circle");
+            var circleCanvas = circleCanvasElement.getContext("2d");
+
+            var colorCode = ['#FF5733', '#283747'];
+
+            var calculatedAngle = [2*Math.PI*0.2, 2*Math.PI*0.8];
+
+            var beginAngle = 0;
+            var endAngle = 0;
+
+            for(var i = 0; i < calculatedAngle.length; i++) {
+                beginAngle = endAngle;
+                endAngle = endAngle + calculatedAngle[i];
+
+                circleCanvas.beginPath();
+
+                circleCanvas.fillStyle = colorCode[i];
+
+                circleCanvas.moveTo(300, 300);
+                circleCanvas.arc(300, 300, 150, beginAngle, endAngle);
+                circleCanvas.lineTo(300, 300);
+                circleCanvas.stroke();
+
+                circleCanvas.fill();
+            }
+    })();
+</script>
 </body>
 </html>
