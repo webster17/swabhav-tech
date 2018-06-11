@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Constructor pattern</title>
+</head>
+
+<body>
+    <div>
+        We have to use setTimeout function for asynchronous pattern.
+    </div>
+
+    <script>
+
+        var dataService = function(){
+            var obj = {};
+            obj.getData = function(){
+                return Math.round(Math.random()*10);
+            }
+            obj.getDataSynchronous = function(callbackFunction){
+                var r = Math.round(Math.random()*100);
+                if(r>50)
+                    callbackFunction("Success: "+r);
+                else
+                    callbackFunction("NOT_ALLOWED!");
+            }
+            obj.getDataAsynchronous = function(callbackFunction){
+                window.setTimeout(function(){
+                    r = Math.round(Math.random()*100);
+                    if(r>50)
+                        callbackFunction("Success: "+r);
+                    else
+                        callbackFunction("NOT_ALLOWED!");
+                }, 0);
+            }
+            return obj;
+        }();
+
+        var d = dataService.getData();
+        console.log("Random number: "+d);
+
+        dataService.getDataSynchronous(function(r){
+            console.log("Synchronous: "+r);
+        });
+
+        dataService.getDataAsynchronous(function(r){
+            console.log("Asynchronous: "+r);
+        });
+
+        console.log("End of the script!");
+    </script>
+</body>
+
+</html>

@@ -7,7 +7,7 @@
 			"c": "Web World Wide",
 			"d": "World Wide Web"
 		},
-		"answers": "d"
+		"answer": "d"
 	},
 	{
 		"id": "2",
@@ -18,7 +18,7 @@
 			"c": "Arithmetic logic unit, Integrated Circuits",
 			"d": "Control Unit, Monitor"
 		},
-		"answers": "b"
+		"answer": "b"
 	},
 	{
 		"id": "3",
@@ -29,7 +29,7 @@
 			"c": "Magnetic Tape and Transistors",
 			"d": "All of above"
 		},
-		"answers": "a"
+		"answer": "a"
 	},
 	{
 		"id": "4",
@@ -40,7 +40,7 @@
 			"c": "Mother Board",
 			"d": "All of above"
 		},
-		"answers": "c"
+		"answer": "c"
 	},
 	{
 		"id": "5",
@@ -51,6 +51,6 @@
 			"c": "Multithreaded",
 			"d": "Multiprogramming"
 		},
-		"answers": "b"
+		"answer": "b"
 	}
 ]

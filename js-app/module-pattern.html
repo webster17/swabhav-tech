@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Module pattern</title>
+</head>
+
+<body>
+    <div>
+        to find Closure variable: go to any method> scopes> closure.<br>anything with obj is going to be public.
+    </div>
+
+    <script>
+        var makeCalculator = function () {
+            var obj = {};
+            var company = "Swabhav Techlab";
+            var developer = "Santosh Dangodra";
+            obj.cubeEvenNo = function (number) {
+                if (number % 2 === 0)
+                    return number * number * number;
+                else
+                    throw "NOT_EVEN";
+            }
+            obj.getCompanyName = function () {
+                return company;
+            }
+            obj.getDeveloperName = function () {
+                return developer;
+            }
+            return obj;
+        }
+
+        var calculator = makeCalculator();
+
+        console.log(calculator);
+        try{
+            console.log(calculator.cubeEvenNo(21));
+        }catch(NOT_EVEN){
+            console.log("Number is not an even number!");
+        }
+        console.log(calculator.getDeveloperName());
+    </script>
+    <script>
+        var makeStudent = function () {
+            var obj = {};
+            var _rollno;
+            var _name;
+            obj.setRollNo = function (rollno) {
+                if (rollno > 0) {
+                    _rollno = rollno;
+                } else {
+                    _rollno = 0;
+                    throw "ROLLNO_FORMAT_NOT_VALID";
+                }
+            }
+            obj.setName = function (name) {
+                _name = name;
+            }
+            obj.getName = function () {
+                return _name;
+            }
+            obj.getRollNo = function () {
+                return _rollno;
+            }
+            obj.getDetails = function () {
+                return "Roll no: " + _rollno + " Name: " + _name;
+            }
+            return obj;
+        }
+
+        var student = makeStudent();
+
+        student.setName('Santosh Dangodra');
+        try{
+            student.setRollNo(1198007);
+        }catch(ROLLNO_FORMAT_NOT_VALID){
+            console.log("Roll no format is invalid!");
+        }
+        console.log(student);
+        console.log(student.getDetails());
+    </script>
+</body>
+
+</html>

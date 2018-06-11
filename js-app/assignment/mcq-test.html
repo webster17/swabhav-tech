@@ -44,9 +44,11 @@
             <section>
                 <h1>Question Bank (MCQ Test)</h1>
                 <br>
-                <div class="question-list">
+                <form action="javascript:void(0)" id="question-bank">
+                <div id="question-list">
                     <button id="start">Start Test</button>
                 </div>
+                </form>
             </section>
         </center>
         <br>
@@ -62,30 +64,26 @@
 
         (function(){
 
-           
-
             var questionList = document.getElementById('question-list');
             var start = document.getElementById('start');
             var submit = document.getElementById('submit');
             var action = document.getElementById('action');
             var questionBankObj={};
-            var sequence = [];
+            var sequence;
+            var scoreCounter=0;
 
             start.addEventListener('click', startAttempt);
             submit.addEventListener('click', submitAttempt);
 
             function startAttempt(){
-                
+                scoreCounter = 0;                
                 var xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
                         questionBankObj = JSON.parse(this.responseText);
+                        sequence=[];
                         generateRandomSequence(0,questionBankObj.length);
                         generateQuestionBank();
-                        console.log(questionBankObj[2].options);
-                        for(var key in questionBankObj[2].options){
-                            console.log("12 "+questionBankObj[2].options.a);
-                        }
                     }
                 };
                 xhttp.open("GET", "resources/question-bank.json", true);
@@ -107,121 +105,100 @@
                     generateRandomSequence(0, end);
                 }
             }
-             /*
-            <div class="seprator">
-                        <div class="question">Which among following first generation of computers had ?</div>
-                        <div class="options-bucket">
-                            <div class="option"><input type="radio" value="a" name="question1" />Vaccum Tubes and Magnetic Drum</div>
-                            <div class="option"><input type="radio" value="b" name="question1" />Vaccum Tubes and Magnetic Drum</div>
-                            <div class="option"><input type="radio" value="c" name="question1" />Vaccum Tubes and Magnetic Drum</div>
-                            <div class="option"><input type="radio" value="d" name="question1" />Vaccum Tubes and Magnetic Drum</div>
-                        </div>
-                    </div>
-            */
 
             function generateQuestionBank(){
+                
+                questionList.innerHTML="";
+                
                 for(var i in sequence){
-                    var separatorNode = document.createElement('DIV');
-                    separatorNode.setAttribute('class', 'separator');
 
                     var questionNode = document.createElement('DIV');
-                    var questionTextNode = document.createTextNode(questionBankObj[i].question);
+                    questionNode.setAttribute('class', 'question');
+                    var questionTextNode = document.createTextNode(questionBankObj[sequence[i]].question);
+                    questionNode.appendChild(questionTextNode);
 
                     var optionBucketNode = document.createElement('DIV');
                     optionBucketNode.setAttribute('class', 'options-bucket');
-
-                    //for(var )
-
+                    optionBucketNode.setAttribute('data', sequence[i]);
                     
-                    console.log(questionBankObj[0].question);
+                    for(var key in questionBankObj[sequence[i]].options){
+                        var inputNode = document.createElement('INPUT');
+                        inputNode.setAttribute('type', 'radio');
+                        inputNode.value=key;
+                        inputNode.setAttribute('name', 'question'+sequence[i]);
+
+                        var optionTextNode = document.createTextNode(questionBankObj[sequence[i]].options[key]);
+                        
+                        var optionNode = document.createElement('div');
+                        optionNode.setAttribute('class', 'option');
+                        optionNode.appendChild(inputNode);
+                        optionNode.appendChild(optionTextNode);
+
+                        optionBucketNode.appendChild(optionNode); 
+                    }
+                    
+                    var separatorNode = document.createElement('DIV');
+                    separatorNode.setAttribute('class', 'separator');
+                    separatorNode.appendChild(questionNode);
+                    separatorNode.appendChild(optionBucketNode);
+                    questionList.appendChild(separatorNode);
+                    action.setAttribute('style', 'display:inline-block');
                 }
+            }
+
+            function getRadioVal(form, name) {
+                var val;
+
+                var radios = form.elements[name];
+
+                for (var i=0, len=radios.length; i<len; i++) {
+                    if ( radios[i].checked ) {
+                        val = radios[i].value;
+                        break;
+                    }
+                }
+                return val; 
+            } 
+
+            function showResult(percentage){
+                console.log('here');
+                
+                action.setAttribute('style','display:none');
+                questionList.innerHTML="";
+
+                var scoreNode = document.createElement('h3');
+                var scoreTextNode = document.createTextNode("You have scored: "+percentage+"%");
+                scoreNode.appendChild(scoreTextNode);
+
+                var restratButtonNode = document.createElement('BUTTON');
+                var restratButtonTextNode = document.createTextNode("Restart Test");
+                restratButtonNode.appendChild(restratButtonTextNode);
+                restratButtonNode.setAttribute('id', 'start');
+                restratButtonNode.addEventListener('click', startAttempt);
+                
+                questionList.appendChild(scoreNode);
+                questionList.appendChild(restratButtonNode);
+            }
+
+            function calculatePercentage(functionShowResult){
+                for(var i in sequence){
+                    var selectedOption = getRadioVal( document.getElementById('question-bank'), 'question'+sequence[i]);
+                    if(selectedOption != undefined){
+                        if(questionBankObj[sequence[i]].answer == selectedOption){
+                            scoreCounter++;
+                        }
+                    }
+                }
+                
+                var percentage = (scoreCounter*100)/questionBankObj.length;
+                functionShowResult(percentage);
             }
 
             function submitAttempt(){
-                return 1;
+                calculatePercentage(showResult);                
             }
-
-            /*
-            var dataList = document.getElementById('data-list');
-            var data=[];
-            if (typeof(Storage) !== "undefined") {
-
-                if (localStorage.getItem("dataItem") !== null){
-                    data = JSON.parse(localStorage.getItem('dataItem'));
-                    for(var i in data){
-                        displayList(data[i]);
-                    }
-                }
-            } else {
-                document.write("Sorry! No Web Storage support..");
-            }
-
-            listName.addEventListener('keyup', checkPressedKey, true);
-
-            function checkPressedKey(){
-                event.preventDefault();
-                if (event.keyCode === 13) {
-                    insertData();
-                }
-            }
-
-            function insertData(){
-                var exist = 0;
-                for(var i in data){
-                    if(listName.value == data[i])
-                        exist = 1;
-                }
-
-                if(exist){
-                    alert("Data is already exist!");
-                } else{
-                    data.push(listName.value);
-                    displayList(listName.value);
-                    localStorage.setItem('dataItem', JSON.stringify(data));
-                }
-                
-                listName.focus();
-            }
-
-            function displayList(dataListValue){
-
-                var spanNode = document.createElement('SPAN');
-                var textNode = document.createTextNode(dataListValue);
-                spanNode.appendChild(textNode);
-                
-                var buttonNode = document.createElement('BUTTON');
-                var buttonTextNode = document.createTextNode('X');
-                buttonNode.appendChild(buttonTextNode);
-                buttonNode.setAttribute('class', 'delete');
-                buttonNode.setAttribute('value', dataListValue);
-                buttonNode.addEventListener('click', deleteData);
-
-                var dataNode = document.createElement('DIV');
-                dataNode.setAttribute('class', 'data');
-                dataNode.appendChild(spanNode);
-                dataNode.appendChild(buttonNode);
-
-                dataList.prepend(dataNode);
-                listName.value = "";
-            }
-
-            function deleteData(){
-                var exist = 0;
-                for(var i in data){
-                    if(this.value == data[i]){
-                        exist = 1;
-                        this.parentElement.style.display='none';
-                        data.splice(i, 1);
-                        localStorage.setItem('dataItem', JSON.stringify(data));
-                    }
-                }
-                if(exist == 0){
-                    alert("Data is not exist!");
-                }
-                listName.focus();
-            }
-            */
-
+            
+            
         })();
     </script>
 </body>

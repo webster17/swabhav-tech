@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Account - Constructor pattern</title>
+
+    <style>
+        section {
+            position: relative;
+            padding: 5px 25px;
+            border: 5px solid #191919;
+            display: inline-block;
+            min-width: 25em;
+        }
+
+        .data {
+            float: left;
+            height: auto;
+            width: 100%;
+            padding: 4px;
+            margin: 10px -5px;
+            text-align: left;
+            background-color: #cccccc;
+            border: 3px solid darkorchid;
+        }
+
+        .header {
+            border-bottom: 2px solid lightcoral;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        button {
+            float: right;
+        }
+
+        warning {
+            color: red;
+        }
+
+        .action-button,
+        .amount {
+            width: 46%;
+            margin: 2%;
+            font-size: 25px;
+            font-weight: 700;
+            padding: 3px;
+        }
+
+        .amount {
+            width: 93%;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h3>
+            to find Closure variable: go to any Method => Scopes => Closure.
+            <br>anything with this is going to be public.
+        </h3>
+    </center>
+    <main>
+        <center>
+            <section>
+                <div id="first-step">
+                    <form action="javascript:void(0)" novalidate>
+                        <table>
+                            <tr>
+                                <td>Name: </td>
+                                <td>
+                                    <input type="text" id="name" name="name" pattern="[A-Za-z/ ]{6,25}" placeholder="Enter name..." autofocus required>
+                                </td>
+                                <td>
+                                    <warning>Only characters allowed.</warning>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Account No: </td>
+                                <td>
+                                    <input type="text" id="accno" pattern="[0-9]{6,15}" placeholder="Enter account no..." required>
+                                </td>
+                                <td>
+                                    <warning>Only numbers allowed.</warning>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Balance: </td>
+                                <td>
+                                    <input type="number" step="any" id="balance" placeholder="Enter initial balance..." required>
+                                </td>
+                                <td>
+                                    <warning>Must be greater than 500.</warning>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <input type="submit" id="create" value="Create an Account">
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div id="second-step" style="display: none;">
+                    <div class="data">
+                        <div class="header">Bank Detail:
+                            <button id="signout">Sign Out</button>
+                        </div>
+                        <div style="margin-top: 7px;">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <b>Name</b>
+                                    </td>
+                                    <td>
+                                        <b>:</b>
+                                    </td>
+                                    <td id="display-name"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Acc No</b>
+                                    </td>
+                                    <td>
+                                        <b>:</b>
+                                    </td>
+                                    <td id="display-accno"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b>Bal</b>
+                                    </td>
+                                    <td>
+                                        <b>:</b>
+                                    </td>
+                                    <td id="display-balance"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="data">
+                        <div>
+                            <input class="amount" type="number" placeholder="Enter amount here.." id="amount" autofocus>
+                        </div>
+                        <div>
+                            <button class="action-button" id="deposit">Deposit</button>
+                            <button class="action-button" id="withdraw">Withdraw</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </center>
+    </main>
+
+    <script>
+        "use strict";
+
+        (function () {
+
+            function Account(accno, name, balance) {
+                var _accno, _name, _balance, _minimum = 500;
+
+                if (/[^a-zA-Z]/.test(name)) {
+                    _name = name;
+                } else {
+                    throw "NAME_FORMAT_INVALID";
+                }
+
+                if (!isNaN(accno) && accno > 0) {
+                    _accno = accno;
+                } else {
+                    throw "ACCOUNT_NO_FORMAT_INVALID";
+                }
+
+                if (isNaN(balance)) {
+                    throw "BALANCE_NOT_A_NUMBER";
+                }
+
+                if (balance >= _minimum) {
+                    _balance = balance;
+                } else {
+                    throw "MINIMUM_BALANCE_EXCEPTION";
+                }
+
+                this.getName = function () {
+                    return _name;
+                }
+
+                this.getAccNo = function () {
+                    return _accno;
+                }
+
+                this.getBalance = function () {
+                    return _balance;
+                }
+
+                this.deposit = function (amount) {
+                    if (isNaN(amount)) {
+                        throw "AMOUNT_NOT_A_NUM";
+                    } else if (amount < 100) {
+                        throw "MINIMUM_DEPOSIT_EXCEPTION";
+                    } else {
+                        _balance = _balance + amount;
+                    }
+                }
+
+                this.withdraw = function (amount) {
+                    if (isNaN(amount)) {
+                        throw "AMOUNT_NOT_A_NUM";
+                    } else if (amount >= _balance - _minimum) {
+                        throw "MINIMUM_BALANCE_EXCEPTION";
+                    } else {
+                        _balance = _balance - amount;
+                    }
+                }
+            }
+
+            var createButton = document.getElementById('create');
+            var nameInput = document.getElementById('name');
+            var accnoInput = document.getElementById('accno');
+            var balanceInput = document.getElementById('balance');
+            var firstStep = document.getElementById('first-step');
+            var secondStep = document.getElementById('second-step');
+            var signout = document.getElementById('signout');
+            var amount = document.getElementById('amount');
+            var displayName = document.getElementById('display-name');
+            var displayAccno = document.getElementById('display-accno');
+            var displayBalance = document.getElementById('display-balance');
+            var deposit = document.getElementById('deposit');
+            var withdraw = document.getElementById('withdraw');
+
+            var account;
+
+            createButton.addEventListener('click', createAccount);
+            signout.addEventListener('click', signOut);
+            deposit.addEventListener('click', depositAmount);
+            withdraw.addEventListener('click', withdrawAmount);
+
+            function createAccount() {
+                try {
+                    account = new Account(accnoInput.value, nameInput.value, parseInt(balanceInput.value));
+                    firstStep.style.display = 'none';
+                    secondStep.style.display = 'block';
+                    displayName.innerHTML = account.getName();
+                    displayAccno.innerHTML = account.getAccNo();
+                    currentBalance();
+                } catch (e) {
+                    if (e == 'NAME_FORMAT_INVALID')
+                        alert('Name must be a character only!');
+                    else if (e == 'ACCOUNT_NO_FORMAT_INVALID')
+                        alert('Account No must be a number only!');
+                    else if (e == 'BALANCE_NOT_A_NUMBER')
+                        alert('Balance must be a number only!');
+                    else if (e == 'MINIMUM_BALANCE_EXCEPTION')
+                        alert('Minimum balance must be greater than 500!');
+                }
+            }
+
+            function depositAmount() {
+                try {
+                    account.deposit(parseInt(amount.value));
+                    currentBalance();
+                } catch (e) {
+                    if (e == 'AMOUNT_NOT_A_NUM')
+                        alert('Amount must be number only!');
+                    else
+                        alert("Deposit amount must be greater than 100!");
+                }
+            }
+
+            function withdrawAmount() {
+                try {
+                    account.withdraw(parseInt(amount.value));
+                    currentBalance();
+                } catch (e) {
+                    if (e == 'AMOUNT_NOT_A_NUM')
+                        alert('Amount must be number only!');
+                    else
+                        alert("Minimum balance must be greater than 500!");
+                }
+            }
+
+            function currentBalance() {
+                displayBalance.innerHTML = account.getBalance();
+                amount.value = "";
+                amount.focus();
+            }
+
+            function signOut() {
+                nameInput.value = "";
+                accnoInput.value = "";
+                balanceInput.value = "";
+                firstStep.style.display = 'block';
+                secondStep.style.display = 'none';
+                nameInput.focus();
+            }
+
+        })();
+    </script>
+</body>
+
+</html>

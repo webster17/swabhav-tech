@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Numbers API</title>
+
+    <style>
+        section{
+            position: relative;;
+            padding: 5px 25px;
+            border:5px solid #191919;
+            display: inline-block;
+        }
+        .data{
+            height : auto;
+            padding: 4px;
+            margin: 3px;
+            text-align: left;
+            background-color: #cccccc;
+            border: 1px solid #b2b2b2;
+        }
+        .delete{
+            margin-left: 30px;
+            margin-top: -2px;
+            float: right;
+        }
+        span{
+            width: 20em;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <center>
+            <section>
+                <input type="text" id="number" placeholder="Enter number..." autofocus>
+                <input type="button" id="search" value="Search">
+                <input type="button" id="hello" value="Hello">
+            </section>
+        </center>
+        <br>
+        <center>
+            <section style="border:5px solid #999999">
+                <div id="event-list">
+                </div>
+            </section>
+            <section style="border:5px solid #999999">
+                <div id="data-list">
+                </div>
+            </section>
+        </center>
+    </main>
+
+    <script>
+        "use strict";
+
+        (function(){
+
+            var number = document.getElementById('number');
+            var search = document.getElementById('search');
+            var hello = document.getElementById('hello');
+
+            var dataList = document.getElementById('data-list');
+            var eventList = document.getElementById('event-list');
+
+            number.addEventListener('keyup', checkPressedKey, true);
+            search.addEventListener('click', insertData);
+            hello.addEventListener('click', helloResponse);
+
+            function checkPressedKey(){
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    insertData();
+                }
+            }
+
+            function helloResponse(){
+                displayList('Hello Pressed!', eventList, 'lightblue');
+                displayList('Hii, welcome sir! Pleare enter number in search box to know something about particular number.', dataList, 'lightblue');
+                number.focus();
+            }
+
+            function insertData(){
+                if(!isNaN(number.value) && number.value != ""){
+                    
+                        var url = "http://numbersapi.com/"+number.value;
+                        displayList('Search Pressed', eventList, 'lightgreen');
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                displayList(this.responseText, dataList, 'lightgreen');
+                                number.value = "";
+                            }
+                        };
+                        xhttp.open("GET", url, true);
+                        xhttp.send();
+                }else{
+                    alert("Input data must be number");
+                }
+                number.focus();
+            }
+
+            function displayList(dataListValue, listElement, colorName){
+
+                var spanNode = document.createElement('SPAN');
+                var textNode = document.createTextNode(dataListValue);
+                spanNode.appendChild(textNode);
+                
+                var buttonNode = document.createElement('BUTTON');
+                var buttonTextNode = document.createTextNode('X');
+                buttonNode.appendChild(buttonTextNode);
+                buttonNode.setAttribute('class', 'delete');
+                buttonNode.value= dataListValue;
+                buttonNode.addEventListener('click', deleteData);
+
+                var currentdate = new Date(); 
+                var datetime =  currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+
+                var dateNode = document.createElement('BUTTON');
+                var dateTextNode = document.createTextNode(datetime);
+                dateNode.appendChild(dateTextNode);
+                dateNode.setAttribute('class', 'delete');
+
+                var dataNode = document.createElement('DIV');
+                dataNode.setAttribute('class', 'data');
+                dataNode.setAttribute('style', 'background-color:'+colorName+';');
+                dataNode.appendChild(spanNode);
+                dataNode.appendChild(buttonNode);
+                
+                if(listElement.getAttribute('id') == 'data-list'){
+                    dataNode.appendChild(dateNode);
+                }
+
+                listElement.prepend(dataNode);
+            }
+
+            function deleteData(){
+                this.parentElement.style.display='none';
+                number.focus();
+            }
+
+        })();
+    </script>
+</body>
+</html>
