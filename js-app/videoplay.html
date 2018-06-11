@@ -1,0 +1,38 @@
+<!Doctype html>
+<html>
+
+<head>
+    <title>Video play Demo</title>
+</head>
+
+<body>
+    <center>
+        <div>
+            <video id="video1" width="420">
+                <source src="samplevideo.mp4" type="video/mp4">
+            </video>
+            <br>
+            <Button id="pause" onClick="pause()">pause</Button>
+            <Button id="play" onClick="play()">play</Button>
+            <Button id="stop" onClick="stop()">stop</Button>
+        </div>
+    </center>
+    <script>
+        var myVideo = document.getElementById("video1");
+
+        function pause() {
+            myVideo.pause();
+        }
+
+        function play() {
+            myVideo.play();
+        }
+
+        function stop() {
+            myVideo.pause();
+            myVideo.currentTime = 0;
+        }
+    </script>
+</body>
+
+</html>

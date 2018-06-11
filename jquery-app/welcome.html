@@ -1,56 +1,93 @@
-<!DOCType html>
-<html>
-    <head>
-        <title>First form</title>
-    </head>
-    <body>
-        <div>
-            <div style="float:left;">
-                <label>Name:</label>
-            </div>
-            <div style="float:left; height:10px; width:50px;"></div>
-            <div style="float:left;">
-                <input type="text" id="name" placeholder="Enter your name here" onkeyup="printName(event);" autofocus>
-            </div>
-            <div style="float:left; height:10px; width:50px;"></div>
-            <div style="float:left;">
-                <input type="button" id="submit" value="Add into List" onclick="appendIntoList();">
-            </div>
-        </div>
-        <div style="height:100px; width: 100px;"></div>
-        <div >
-            <div style="float:left;">Entered name:</div>
-            <div style="margin-left: 20px; float: left;" id="display-name"></div>
-        </div>
-        <div style="height:50px; width: 100px;"></div>
-        <div>
-                <div style="float:left">List of Entered name:</div>
-                <div style="margin-left: 20px; float: left;" id="display-entered-name"></div>
-            </div>
-        <script>
-            function printName(event){
-                event.preventDefault();
-                if (event.keyCode === 13) {
-                    document.getElementById("submit").click();
-                }else{
-                    var nameTextBox = document.getElementById("name");
-                    var currentEnteredName = document.getElementById("display-name");
-                    currentEnteredName.innerHTML = nameTextBox.value;
-                }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><style>
+            .body{
+                bgcolor: red;
             }
+            span{
+                font-size: 50px;
+                padding: 30px 70px;
+                margin: 20px;
+                font-weight: 700;
+                background-color: rgba(0,0,0,0.3);
+                border: 2px solid rgba(0,0,0,0.7);
+                cursor: pointer;
+            }
+            img{
+                height:200px;
+                margin-top: -100px;
+            }
+            </style>
+</head>
+<body>
 
-            function appendIntoList(){
-                var nameTextBox = document.getElementById("name");
-                var currentEnteredName = document.getElementById("display-name");
-                
-                var node = document.createElement("DIV");
-                var textnode = document.createTextNode(nameTextBox.value);
-                node.appendChild(textnode);
-                document.getElementById('display-entered-name').prepend(node);
-                nameTextBox.value="";
-                currentEnteredName.innerHTML="";
-                nameTextBox.focus();
-            }
-        </script>
-    </body>
+
+        <main>
+                <center>
+                    <div style="position: relative; top:12em; font-size:25px;"  id="content">
+                    </div>
+                </center>
+            </main>
+        
+            <script>
+                $(document).ready(function(){
+
+                "use strict";
+                (function () {
+                    var mainContent = document.getElementById('content');
+                    var loader = document.getElementById('loader');
+                    var spanNode;
+                    ///showLoader();
+        
+                    function getRandomColor(){
+                        return '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+                    }
+
+                    showLoader();
+                    window.setInterval(showLoader, 8000);
+        
+                    function showLoader() {
+                        var loader = document.createElement('div');
+                        var image = document.createElement('IMG');
+                        $(image).attr('id','loader').attr('src', 'images/loader.gif');
+                        $(loader).attr("class", "loader");
+                        $(mainContent).html("");
+                        $(loader).append(image);
+                        $(mainContent).append(loader);
+        
+                        setTimeout(function () {
+                            $(mainContent).html("");
+                            var randomColor = getRandomColor();
+                            $(spanNode).html(randomColor.toUpperCase());
+                            $("body").css("background-color", randomColor);
+                            spanNode = document.createElement('span');
+                            var breakNode = document.createElement('BR');
+                            $(spanNode).html(randomColor).attr('id', 'color-code');
+                            mainContent.append(spanNode);
+                            mainContent.append(breakNode);
+                        }, 3000)
+                    }
+
+                    $(spanNode).on('click', function(){
+                        console.log('clicked');
+                        // var textNode = document.createElement('SPAN');
+                        // $(textNode).html("Copied!");
+                        // console.log(textNode);
+                        // $(mainContent).append(textNode);
+                        // window.setTimeout(function(){
+                        //     $(textNode).fadeOut("slow");
+                        //     console.log('time');
+                        // },1000);
+                        // $(this).select();
+                        // document.execCommand("copy");
+                    });
+                })();                
+            });
+            </script> 
+</body>
 </html>

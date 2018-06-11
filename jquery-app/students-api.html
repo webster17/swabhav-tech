@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student API</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Ajax library-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <style>
+        .form-control {
+            margin-bottom: 5px;
+        }
+
+        .has-error {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" style="margin-top: 30px;">
+
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-success btn-block" id="load">Load Student Data</button>
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-success btn-block" id="load" data-toggle="modal" data-target="#myModal">Add New Student</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 3em;">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <table class="table" id="table" style="display: none; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>DOB</th>
+                            <th>Gender</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-data">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <form action="javascript:void(0)" id="student-form">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add New Student</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-2">Roll No:</div>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="number" id="rollNo" placeholder="Enter rollno">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">Name:</div>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="name" placeholder="Enter name">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">Email:</div>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="email" name="email" data-validation="email" id="email" placeholder="Enter email">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">DOB:</div>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="date" id="dob" placeholder="Enter dob">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">Gender:</div>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id="gender">
+                                            <option value="">Select a Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="create-student">Add New Student</button>
+                            <button type="button" class="btn btn-default make-close" id="close" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            var loadButton = document.getElementById('load');
+            var table = document.getElementById('table');
+            var studentData = document.getElementById('student-data');
+
+            refreshData();
+
+            function getStudentObject() {
+
+                var student = {};
+
+                student.rollNo = $('#rollNo').val();
+                student.name = $('#name').val();
+
+                dob = new Date($('#dob').val());
+                student.date = dob.getDay() + "/" + dob.getMonth() + "/" + dob.getFullYear();
+                student.email = $('#email').val();
+                var currentDate = new Date();
+                student.age = currentDate.getFullYear() - dob.getFullYear();
+                if ($('#gender option:selected').val() == 'male')
+                    student.isMale = true;
+                else if ($('#gender option:selected').val() == 'female')
+                    student.isMale = false;
+                else
+                    student.isMale = "";
+
+                return student;
+            }
+
+            function isValidData(student) {
+                var hasError = 1;
+                $('.form-control').removeClass('has-error');
+
+                if (student.rollNo == "" || isNaN(student.rollNo) || student.rollNo < 1) {
+                    $('#rollNo').addClass('has-error');
+                    hasError = 0;
+                }
+                if (student.name == "" || !isNaN(student.name)) {
+                    $('#name').addClass('has-error');
+                    hasError = 0;
+                }
+                if (student.email == "") {
+                    $('#email').addClass('has-error');
+                    hasError = 0;
+                }
+                if (student.isMale == "") {
+                    $('#gender').addClass('has-error');
+                    hasError = 0;
+                }
+                if (!Date.parse($("#dob").val())) {
+                    $('#dob').addClass('has-error');
+                    hasError = 0;
+                }
+
+                return hasError;
+            }
+
+            function formReset() {
+                $('#student-form').trigger('reset');
+            }
+
+            $("#create-student").on('click', function () {
+
+                if (isValidData(getStudentObject())) {
+                    $.ajax({
+                        method: 'POST',
+                        url: 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students',
+                        data: getStudentObject(),
+                        beforeSend: function () {
+                            $("#create-student").html("<i class='fa fa-spinner fa-spin '></i> Adding").attr('disabled', 'disabled');
+                        },
+                        success: function (response) {
+                            $("#create-student").text("Added");
+                            window.setTimeout(function () {
+                                $("#myModal .make-close").click();
+                                formReset();
+                                refreshData();
+                            }, 1500);
+                        },
+                        error: function (request, status, error) {
+                            $("#create-student").text("Retry");
+                        },
+                        complete: function () {
+                            $('#create-student').removeAttr("disabled");
+                        }
+                    });
+                } else {
+                    $("#create-student").text("Retry");
+                }
+
+            });
+
+            $('#load').on('click', function () {
+                refreshData();
+            })
+
+            function displayData(student) {
+
+                if (student.isMale)
+                    var gender = "Male";
+
+                var displayData = "<tr><td>" + student.rollNo + "</td>"
+                    + "<td>" + student.name + "</td>"
+                    + "<td>" + student.age + "</td>"
+                    + "<td>" + student.email + "</td>"
+                    + "<td>" + student.date + "</td>"
+                    + "<td>" + gender + "</td>"
+                    + "<td><button val=" + student.rollNo + " class='update'>Update</button></td>"
+                    + "<td><button val=" + student.rollNo + " class='delete'>Delete</button></td></tr>";
+
+                $("#student-data").append(displayData);
+            }
+
+            $('.delete').on('click', function () {
+                console.log($(this).val());
+                /*
+                $.ajax({
+                    method: 'POST',
+                    url: 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/',
+                    data: getStudentObject(),
+                    beforeSend: function () {
+                        $("#create-student").html("<i class='fa fa-spinner fa-spin '></i> Adding").attr('disabled', 'disabled');
+                    },
+                    success: function (response) {
+                        $("#create-student").text("Added");
+                        window.setTimeout(function () {
+                            $("#myModal .make-close").click();
+                            formReset();
+                            refreshData();
+                        }, 1500);
+                    },
+                    error: function (request, status, error) {
+                        $("#create-student").text("Retry");
+                    },
+                    complete: function () {
+                        $('#create-student').removeAttr("disabled");
+                    }
+                });
+                */
+            });
+
+            function refreshData() {
+
+                $('#student-data').html("");
+
+                $.ajax({
+                    method: 'GET',
+                    url: 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students',
+                    dataType: 'json',
+                    beforeSend: function () {
+                        $(loadButton).html("<i class='fa fa-spinner fa-spin '></i> Loading").attr('disabled', 'disabled');
+                    },
+                    success: function (studentData) {
+                        $(table).css("display", "block");
+                        var gender = "Female"
+
+                        for (var i in studentData) {
+                            displayData(studentData[i])
+                        }
+
+                        $(loadButton).text("Loaded");
+                        window.setTimeout(function () {
+                            $(loadButton).text("Reload");
+                        }, 1500);
+                    },
+                    error: function (request, status, error) {
+                        console.log(request)
+                        $(loadButton).text("Retry");
+                    },
+                    complete: function () {
+                        $(loadButton).removeAttr("disabled");
+                    }
+                });
+            };
+
+        });
+    </script>
+</body>
+
+</html>

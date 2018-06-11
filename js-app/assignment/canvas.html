@@ -2,24 +2,43 @@
 <html>
 <body>
 
-<p>Image to use:</p>
-<img id="scream" src="resources/scream.jpg" alt="The Scream" width="220" height="277">
+    <canvas id="piechart" width="600" height="600"> </canvas>
 
-<p>Canvas to fill:</p>
-<canvas id="myCanvas" width="250" height="300"
-style="border:1px solid #d3d3d3;">
-Your browser does not support the HTML5 canvas tag.</canvas>
 
-<p><button onclick="myCanvas()">Try it</button></p>
+    <script>
 
-<script>
-function myCanvas() {
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    var img = document.getElementById("scream");
-    ctx.drawImage(img, 5, 5,240, 290);
-}
-</script>
+        (function(){
+            
+            "use strict";
+
+            var chart = document.getElementById("piechart");
+            var pieChartCanvas = chart.getContext("2d");
+
+            var pieSliceColors = ['blue', 'red'];
+
+            var pieAngles = [2*Math.PI*0.2, 2*Math.PI*0.8];
+
+            var beginAngle = 0;
+            var endAngle = 0;
+
+            for(var i = 0; i < pieAngles.length; i++) {
+                beginAngle = endAngle;
+                endAngle = endAngle + pieAngles[i];
+
+                pieChartCanvas.beginPath();
+
+                pieChartCanvas.fillStyle = pieSliceColors[i];
+
+                pieChartCanvas.moveTo(300, 300);
+                pieChartCanvas.arc(300, 300, 150, beginAngle, endAngle);
+                pieChartCanvas.lineTo(300, 300);
+                pieChartCanvas.stroke();
+
+                pieChartCanvas.fill();
+            }
+    })();
+
+    </script> 
 
 </body>
 </html>
