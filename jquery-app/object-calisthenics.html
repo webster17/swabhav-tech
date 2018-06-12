@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student API</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        .form-control {
+            margin-bottom: 5px;
+        }
+
+        .has-error {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" style="margin-top: 1em;">
+        <div class="col-md-12 ">
+
+            <div class="row ">
+                <div class="col-xs-2"></div>
+                <div class="col-xs-8 jumbotron">
+                    <div class="col-xs-6">
+                        <button type="button" class="btn btn-success btn-block" id="load">Load Student Data</button>
+                    </div>
+                    <div class="col-xs-6">
+                        <button type="button" class="btn btn-success btn-block" id="add-new-student">Add New Student</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 col-centered jumbotron">
+                    <center>
+                        <table class="table" id="table" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Roll No</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Email</th>
+                                    <th>DOB</th>
+                                    <th>Gender</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-data">
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add New Student</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form action="javascript:void(0)" id="student-form" name="student-form" novalidate>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">Roll No:</div>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="number" for="student-form" id="rollNo" placeholder="Enter rollno">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">Name:</div>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="text" id="name" placeholder="Enter name">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">Email:</div>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="email" name="email" data-validation="email" id="email" placeholder="Enter email">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">DOB:</div>
+                                    <div class="col-md-10">
+                                        <input class="form-control" type="date" id="dob" placeholder="Enter dob">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-2">Gender:</div>
+                                    <div class="col-md-10">
+                                        <select class="form-control" id="gender">
+                                            <option value="">Select a Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="create-student">Add New Student</button>
+                        <button type="button" class="btn btn-default make-close" id="close" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            "use strict";
+            (function () {
+
+                var loadButtonElement = $('#load');
+                var studentDataElement = $('#student-data');
+                var createStudentElement = $('#create-student');
+                var modalElement = $('#myModal');
+                var url = "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/";
+
+                var studentFormInput = $('#student-form');
+                var rollNoInput = $('#rollNo');
+                var nameInput = $('#name');
+                var genderInput = $('#gender');
+                var dobInput = $('#dob');
+                var emailInput = $('#email');
+
+                var makeStudentDetails = function () {
+                    var _obj = {};
+                    var _dob;
+                    _obj.getRollNo = function () {
+                        return $(rollNoInput).val();
+                    }
+                    _obj.getName = function () {
+                        return $(nameInput).val();
+                    }
+                    _obj.getGender = function () {
+                        if ($(genderInput).find(':selected').val() == 'male')
+                            return true;
+                        else if ($(genderInput).find(':selected').val() == 'female')
+                            return false;
+                        return undefined;
+                    }
+                    _obj.getDate = function () {
+                        _dob = new Date($(dobInput).val());
+                        return $(dobInput).val();
+
+                    }
+                    _obj.getEmail = function () {
+                        return $(emailInput).val();
+                    }
+                    _obj.getAge = function () {
+                        var currentDate = new Date();
+                        return currentDate.getFullYear() - _dob.getFullYear();
+                    }
+                    return _obj;
+                }
+
+                var makeStudent = function () {
+
+                    var student = {};
+                    var studentDetails = makeStudentDetails();
+
+                    student.rollNo = studentDetails.getRollNo();
+                    student.name = studentDetails.getName();
+                    student.isMale = studentDetails.getGender();
+                    student.date = studentDetails.getDate();
+                    student.email = studentDetails.getEmail();
+                    student.age = studentDetails.getAge();
+
+                    return student;
+                }
+
+                function isValidData(student) {
+                    var hasError = 1;
+                    $('.form-control').removeClass('has-error');
+
+                    if (student.rollNo == "" || isNaN(student.rollNo) || student.rollNo < 1) {
+                        $(rollNoInput).addClass('has-error');
+                        hasError = 0;
+                    }
+                    if (student.name == "" || !isNaN(student.name)) {
+                        $(nameInput).addClass('has-error');
+                        hasError = 0;
+                    }
+                    if (student.email == "") {
+                        $(emailInput).addClass('has-error');
+                        hasError = 0;
+                    }
+                    if (student.isMale == undefined) {
+                        $(genderInput).addClass('has-error');
+                        hasError = 0;
+                    }
+                    if (!Date.parse($("#dob").val())) {
+                        $(dobInput).addClass('has-error');
+                        hasError = 0;
+                    }
+
+                    return hasError;
+                }
+
+                function formReset(buttonText) {
+                    var text = 'Add New Student';
+                    if (buttonText == 'update') {
+                        text = "Update Student";
+                    }
+
+                    $(studentFormInput).trigger('reset');
+                    $(rollNoInput).removeAttr("disabled");
+                    $(createStudentElement).text(text);
+                    $('.form-control').removeClass('has-error');
+                }
+
+                function getStudentRaw(student) {
+                    var gender = 'Female';
+
+                    if (student.isMale)
+                        gender = "Male";
+
+                    var studentRaw = "<tr><td>" + student.rollNo + "</td>"
+                        + "<td>" + student.name + "</td>"
+                        + "<td>" + student.age + "</td>"
+                        + "<td>" + student.email + "</td>"
+                        + "<td>" + student.date + "</td>"
+                        + "<td>" + gender + "</td>"
+                        + "<td><button value=" + student.rollNo + " class='btn btn-primary update'><i class='fa fa-pencil-square'></i></button></td>"
+                        + "<td><button value=" + student.rollNo + " class='btn btn-danger delete'><i class='fa fa-trash'></i></button></td></tr>";
+
+                    return studentRaw;
+                }
+
+                function displayRefreshedData(students) {
+                    for (var i in students) {
+                        $(studentDataElement).append(getStudentRaw(students[i])).fadeIn('slow');
+                    }
+
+                }
+
+                function refreshData() {
+
+                    $.ajax({
+                        method: 'GET',
+                        url: url,
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $(loadButtonElement).html("<i class='fa fa-spinner fa-spin '></i> Loading").attr('disabled', 'disabled');
+                        },
+                        success: function (students) {
+
+                            $(studentDataElement).html("");
+                            displayRefreshedData(students);
+
+                            $(loadButtonElement).text("Loaded");
+                            window.setTimeout(function () {
+                                $(loadButtonElement).text("Reload");
+                            }, 1500);
+                        },
+                        error: function (request, status, error) {
+                            $(loadButtonElement).text("Retry");
+                        },
+                        complete: function () {
+                            $(loadButtonElement).removeAttr("disabled");
+                        }
+                    });
+                };
+
+                function addStudent() {
+                    $.ajax({
+                        method: 'POST',
+                        url: url,
+                        data: makeStudent(),
+                        beforeSend: function () {
+                            $(createStudentElement).html("<i class='fa fa-spinner fa-spin '></i> Adding").attr('disabled', 'disabled');
+                        },
+                        success: function (response) {
+                            $(createStudentElement).text("Added");
+                            window.setTimeout(function () {
+                                formReset();
+                                $(modalElement).find('.make-close').click();
+                                refreshData();
+                            }, 700);
+                        },
+                        error: function (request, status, error) {
+                            $(createStudentElement).text("Retry");
+                        },
+                        complete: function () {
+                            $(createStudentElement).removeAttr("disabled");
+                        }
+                    });
+                }
+
+                function updateStudent() {
+                    var student = makeStudent();
+                    $.ajax({
+                        method: 'PUT',
+                        url: url + student.rollNo,
+                        data: student,
+                        beforeSend: function () {
+                            $(createStudentElement).html("<i class='fa fa-spinner fa-spin '></i> Updating").attr('disabled', 'disabled');
+                        },
+                        success: function (response) {
+                            $(createStudentElement).text("Updated");
+                            window.setTimeout(function () {
+                                $(modalElement).find('.make-close').click();
+                                formReset();
+                                refreshData();
+                            }, 700);
+                        },
+                        error: function (request, status, error) {
+                            $(createStudentElement).text("Retry");
+                        },
+                        complete: function () {
+                            $(createStudentElement).removeAttr("disabled");
+                        }
+                    });
+                }
+
+                $(document).on('click', '#load', function () {
+                    refreshData();
+                })
+
+                $(document).on('click', '#add-new-student', function () {
+                    formReset();
+                    $('#myModal').modal('show');
+                });
+
+                $("#myModal").on("hidden.bs.modal", function () {
+                    $('.update').html("<i class='fa fa-pencil-square'></i>");
+                });
+
+                $(document).on('click', '#create-student', function () {
+
+                    var validateDataStatus = isValidData(new makeStudent());
+
+                    if (validateDataStatus == 1 && ($(createStudentElement).text() == 'Update Student' || $(createStudentElement).text() == 'Retry Update')) {
+                        updateStudent();
+                    }
+                    else if (validateDataStatus == 1 && ($(createStudentElement).text() == 'Add New Student' || $(createStudentElement).text() == 'Retry Add')) {
+                        addStudent();
+                    }
+                    else if (validateDataStatus == 0 && $(createStudentElement).text() == 'Update Student') {
+                        $(createStudentElement).text("Retry Update");
+                    }
+                    else if (validateDataStatus == 0 && $(createStudentElement).text() == 'Add New Student') {
+                        $(createStudentElement).text("Retry Add");
+                    }
+                });
+
+                $(document).on('click', '.update', function () {
+
+                    var updatableElement = $(this);
+
+                    console.log(updatableElement.val());
+
+                    $.ajax({
+                        method: 'GET',
+                        url: url + updatableElement.val(),
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $('.update').attr('disabled', 'disabled');
+                            $(updatableElement).html("<i class='fa fa-spinner fa-spin '></i>");
+                        },
+                        success: function (student) {
+
+                            formReset('update');
+
+                            var gender = 'female';
+                            if (student.isMale)
+                                gender = 'male';
+
+                            rollNoInput.val(student.rollNo);
+                            rollNoInput.attr('disabled', 'disabled');
+                            nameInput.val(student.name);
+                            genderInput.val(gender);
+                            dobInput.val(student.date);
+                            emailInput.val(student.email);
+
+                            $('#myModal').modal('show');
+                        },
+                        error: function (request, status, error) {
+                            $(updatableElement).html("<i class='fa fa-pencil-square-o'></i>");
+                        },
+                        complete: function () {
+                            $('.update').removeAttr("disabled");
+                        }
+                    });
+                });
+
+                $(document).on('click', '.delete', function () {
+
+                    var deletableElement = $(this);
+                    $.ajax({
+                        method: 'DELETE',
+                        url: url + $(this).val(),
+                        beforeSend: function () {
+                            $('.delete').attr('disabled', 'disabled');
+                            $(deletableElement).html("<i class='fa fa-spinner fa-spin'></i>");
+                        },
+                        success: function (response) {
+                            $(deletableElement).html("<i class='fa fa-check'></i>");
+                            window.setTimeout(function () {
+                                formReset();
+                                $(modalElement).find('.make-close').click();
+                                refreshData();
+                            }, 500);
+                        },
+                        error: function (request, status, error) {
+                            $(deletableElement).html("<i class='fa fa-trash-o'></i>");
+                        },
+                        complete: function () {
+                            $('.delete').removeAttr("disabled");
+                        }
+                    });
+                });
+
+                refreshData();
+            })();
+        });
+    </script>
+</body>
+
+</html>
