@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MCQ Test</title>
+
+    <style>
+        section{
+            position: relative;;
+            padding: 5px 25px;
+            border:5px solid #191919;
+            display: inline-block;
+        }
+        .data{
+            height : auto;
+            padding: 4px;
+            margin: 3px;
+            text-align: left;
+            background-color: #cccccc;
+            border: 1px solid #b2b2b2;
+        }
+        .separator{
+            padding:10px;
+        }
+        .question,.option{
+            text-align: left;
+        }
+        h1{
+            margin:0px;
+            padding:0px;
+        }
+        .delete{
+            margin-left: 30px;
+            margin-top: -2px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <center>
+            <section>
+                <h1>Question Bank (MCQ Test)</h1>
+                <br>
+                <form action="javascript:void(0)" id="question-bank">
+                <div id="question-list">
+                    <button id="start">Start Test</button>
+                </div>
+                </form>
+            </section>
+        </center>
+        <br>
+        <center>
+            <section style="border:5px solid #999999; display: none" id="action">
+                    <button id="submit">Submit Test</button>
+            </section>
+        </center>
+    </main>
+
+    <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
+    <script>
+        "use strict";
+
+        (function(){
+
+            var questionList = document.getElementById('question-list');
+            var start = document.getElementById('start');
+            var submit = document.getElementById('submit');
+            var action = document.getElementById('action');
+            var questionBankObj={};
+            var sequence;
+            var scoreCounter=0;
+
+            start.addEventListener('click', startAttempt);
+            submit.addEventListener('click', submitAttempt);
+
+            function startAttempt(){
+                scoreCounter = 0;                
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        questionBankObj = JSON.parse(this.responseText);
+                        sequence=[];
+                        generateRandomSequence(0,questionBankObj.length);
+                        generateQuestionBank();
+                    }
+                };
+                xhttp.open("GET", "resources/question-bank.json", true);
+                xhttp.send();
+            }
+
+            function generateRandomSequence(start, end){
+                var random = Math.round((Math.random() * 100000)%(end-1));
+                if(sequence.length != end){
+                    var exist = 0;
+                    for(var i in sequence){
+                        if(sequence[i] == random){
+                            exist=1;
+                        }
+                    }
+                    if(exist == 0){
+                        sequence.push(random);
+                    }
+                    generateRandomSequence(0, end);
+                }
+            }
+
+            function generateQuestionBank(){
+                
+                questionList.innerHTML="";
+                
+                for(var i in sequence){
+
+                    var questionNode = document.createElement('DIV');
+                    questionNode.setAttribute('class', 'question');
+                    var questionTextNode = document.createTextNode(questionBankObj[sequence[i]].question);
+                    questionNode.appendChild(questionTextNode);
+
+                    var optionBucketNode = document.createElement('DIV');
+                    optionBucketNode.setAttribute('class', 'options-bucket');
+                    optionBucketNode.setAttribute('data', sequence[i]);
+                    
+                    for(var key in questionBankObj[sequence[i]].options){
+                        var inputNode = document.createElement('INPUT');
+                        inputNode.setAttribute('type', 'radio');
+                        inputNode.value=key;
+                        inputNode.setAttribute('name', 'question'+sequence[i]);
+
+                        var optionTextNode = document.createTextNode(questionBankObj[sequence[i]].options[key]);
+                        
+                        var optionNode = document.createElement('div');
+                        optionNode.setAttribute('class', 'option');
+                        optionNode.appendChild(inputNode);
+                        optionNode.appendChild(optionTextNode);
+
+                        optionBucketNode.appendChild(optionNode); 
+                    }
+                    
+                    var separatorNode = document.createElement('DIV');
+                    separatorNode.setAttribute('class', 'separator');
+                    separatorNode.appendChild(questionNode);
+                    separatorNode.appendChild(optionBucketNode);
+                    questionList.appendChild(separatorNode);
+                    action.setAttribute('style', 'display:inline-block');
+                }
+            }
+
+            function getRadioVal(form, name) {
+                var val;
+
+                var radios = form.elements[name];
+
+                for (var i=0, len=radios.length; i<len; i++) {
+                    if ( radios[i].checked ) {
+                        val = radios[i].value;
+                        break;
+                    }
+                }
+                return val; 
+            } 
+
+            function showResult(percentage){
+                console.log('here');
+                
+                action.setAttribute('style','display:none');
+                questionList.innerHTML="";
+
+                var scoreNode = document.createElement('h3');
+                var scoreTextNode = document.createTextNode("You have scored: "+percentage+"%");
+                scoreNode.appendChild(scoreTextNode);
+
+                var restratButtonNode = document.createElement('BUTTON');
+                var restratButtonTextNode = document.createTextNode("Restart Test");
+                restratButtonNode.appendChild(restratButtonTextNode);
+                restratButtonNode.setAttribute('id', 'start');
+                restratButtonNode.addEventListener('click', startAttempt);
+                
+                questionList.appendChild(scoreNode);
+                questionList.appendChild(restratButtonNode);
+            }
+
+            function calculatePercentage(functionShowResult){
+                for(var i in sequence){
+                    var selectedOption = getRadioVal( document.getElementById('question-bank'), 'question'+sequence[i]);
+                    if(selectedOption != undefined){
+                        if(questionBankObj[sequence[i]].answer == selectedOption){
+                            scoreCounter++;
+                        }
+                    }
+                }
+                
+                var percentage = (scoreCounter*100)/questionBankObj.length;
+                functionShowResult(percentage);
+            }
+
+            function submitAttempt(){
+                calculatePercentage(showResult);                
+            }
+            
+            
+        })();
+    </script>
+</body>
+</html>

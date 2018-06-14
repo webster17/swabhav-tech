@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Css Selectors Demonstration</title>
+    <style>
+        p.center {
+            text-align: center;
+            font-size: 12pt;
+            -webkit-text-fill-color: red;
+        }
+
+        p#big {
+            font-size: 30pt;
+        }
+
+        h1 {
+            -webkit-text-fill-color: green;
+        }
+
+        div>p {
+            background-color: yellow;
+        }
+
+        div+h2 {
+            background-color: green;
+        }
+
+        a:active {
+            -webkit-text-fill-color: green;
+            background-color: orange;
+        }
+
+        a:hover {
+            font-size: 30pt;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="center">class selector example</p>
+    <p id="big">id selector example</p>
+    <h1> h1 style </h1>
+    <h1> h1 style </h1>
+    <div>
+        <p>child selector</p>
+    </div>
+    <h2> h2 style</h2>
+
+    <a href="welcome.html">welcome page</a>
+</body>
+
+</html>

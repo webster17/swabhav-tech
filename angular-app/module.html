@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJs - Module</title>
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+    <style>
+        .rounded{
+            border-radius:  15px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" ng-app="moduleA">
+        <div class="row mt-3 justify-content-center rounded bg-warning">
+            <div class="col"></div>
+            <div class="col-xl-12 text-center rounded vertical-center">
+                <h1> AngularJs Module</h1>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-3 justify-content-center" ng-controller="InvoiceController">
+            <div class="col-xl-12 text-center rounded p-1 bg-primary">Developer Name : {{ developer }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-secondary">Invoice Date : {{ invoice.date }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-dark text-white">Total Cost : {{ invoice.cost }}</div>
+        </div>
+        <div class="row mt-3 justify-content-center" ng-controller="AddressController">
+            <div class="col-xl-12 text-center rounded p-1 bg-primary">Developer Name : {{ developer }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-secondary">City : {{ address.city }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-dark text-white">State : {{ address.state }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-warning">Pincode  : {{ address.pincode }}</div>
+        </div>
+        <div class="row mt-3 justify-content-center" ng-controller="OrderController">
+            <div class="col-xl-12 text-center rounded p-1 bg-primary">Developer Name : {{ developer }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-secondary">City : {{ order.date }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-dark text-white">State : {{ order.quantity }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-warning">Pincode : {{ order.shippingCost }}</div>
+        </div>
+    </div>
+
+    <script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+    <script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="http://localhost/angular-app/resources/angular/angular.js"></script>
+    <script src="http://localhost/angular-app/js/module.js"></script>
+</body>
+
+</html>

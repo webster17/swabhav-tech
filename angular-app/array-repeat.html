@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>AngularJs - Binding</title>
+	<link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container" ng-app="myModule" ng-controller="EmployeeController">
+		<div class="row mt-3 justify-content-center rounded bg-light align-center">
+			<div class="col"></div>
+			<div class="col-xl-12 text-center rounded vertical-center">
+				<h3> AngularJs -
+					<kbd>ng-repeat</kbd>
+					to dispay data from Array
+				</h3>
+			</div>
+			<div class="col"></div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-md-7 m-0 p-0 mx-auto col-xs-12">
+				<form action="javascript:void(0)">
+					<div class="row mb-2">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroupPrepend1">Employee ID</span>
+							</div>
+							<input type="number" class="form-control" ng-class="idInputClass" ng-model="employee.id" placeholder="Employee ID" aria-describedby="inputGroupPrepend1">
+							<div class="invalid-feedback">Id must be a integer value!</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroupPrepend2">Name</span>
+							</div>
+							<input type="text" class="form-control" ng-class="nameInputClass" ng-model="employee.name" placeholder="Full name" aria-describedby="inputGroupPrepend2">
+							<div class="invalid-feedback">Name must be a alpha value!</div>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroupPrepend3">Job Profile</span>
+							</div>
+							<input type="text" class="form-control" ng-class="jobProfileInputClass" ng-model="employee.jobProfile" placeholder="Job profile"
+							 aria-describedby="inputGroupPrepend3">
+							<div class="invalid-feedback">Job Profile must be a alpha value!</div>
+						</div>
+					</div>
+					<div class="form-row mb-1 fadeIn fadeOut" ng-show="showStatus">
+						<div class="col-sm-9 mx-auto text-center">
+							<label ng-class="textClass">{{ statusData }}</label>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-sm-9 mx-auto">
+							<button class="btn bg-dark btn-block text-light" ng-click="addEmployee()">Add Employee</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row mt-5 justify-content-center">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Employee ID</th>
+						<th>Name</th>
+						<th>Job Profile</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="emp in employees">
+						<td>{{ emp.id }}</td>
+						<td>{{ emp.name }}</td>
+						<td>{{ emp.jobProfile }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+	<script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+	<script src="http://localhost/angular-app/resources/angular/angular.js"></script>
+	<script src="http://localhost/angular-app/js/module.js"></script>
+	<script>
+		angular.module('myModule', []);
+		angular.module('myModule').controller('EmployeeController', function ($scope, $timeout) {
+
+			$scope.resetForm = function () {
+				$scope.employee = {
+					name: '',
+					id: '',
+					jobProfile: ''
+				};
+				$scope.jobProfileInputClass = '';
+				$scope.nameInputClass = '';
+				$scope.idInputClass = '';
+			};
+
+			$scope.resetStatusMsg = function () {
+				$scope.showStatus = false;
+				$scope.textClass = '';
+				$scope.statusData = '';
+			}
+
+			$scope.isValidEmployee = function () {
+				valid = true;
+
+				$scope.idInputClass = $scope.nameInputClass = $scope.jobProfileInputClass = 'is-valid';
+
+				if ($scope.employee.id == "" || isNaN($scope.employee.id) || $scope.employee.id < 1) {
+					$scope.idInputClass = 'is-invalid';
+					valid = false;
+				}
+				if ($scope.employee.name == "" || !isNaN($scope.employee.name)) {
+					$scope.nameInputClass = 'is-invalid';
+					valid = false;
+				}
+				if ($scope.employee.jobProfile == "" || !isNaN($scope.employee.jobProfile)) {
+					$scope.jobProfileInputClass = 'is-invalid';
+					valid = false;
+				}
+				return valid;
+			};
+
+			$scope.showSuccessStatus = function () {
+				$scope.statusData = 'Successfully your employee data added.';
+				$scope.showStatus = true;
+				$scope.textClass = 'text-success';
+				
+				$timeout(function () {
+					if ($scope.textClass = 'text-success')
+						$scope.resetStatusMsg();
+				}, 2000);
+			}
+
+			$scope.addEmployee = function () {
+				if ($scope.isValidEmployee()) {
+					$scope.showSuccessStatus();
+					$scope.employees.push($scope.employee);
+					$scope.resetForm();
+				}
+			};
+
+			$scope.employees = [];
+			$scope.resetForm();
+			$scope.resetStatusMsg();
+
+		});
+
+	</script>
+</body>
+
+</html>

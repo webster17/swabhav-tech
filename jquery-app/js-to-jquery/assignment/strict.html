@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Use Strict</title>
+</head>
+<body>
+    open developer menu to see output.
+    <script>
+        
+        //uy = 3.14;        // This will not cause an error.
+
+        "use strict";
+       
+        myFunction();
+
+        var x = 3.14;
+        delete x; 
+
+        a = {p1:10, p2:20};
+        
+        function fn(p1, p1) {};   // This will cause an error
+
+        function b(p1, p2) {}; 
+        delete b;                // This will cause an error 
+
+        var c = 010;             // This will cause an error
+
+        var d = "\010";            // This will cause an error
+
+        var obj = {};
+        Object.defineProperty(obj, "p", {value:0, writable:false});
+
+        obj.e = 3.14;            // This will cause an error
+        var obj = {get e() {return 0} };
+
+        obj.f = 3.14;            // This will cause an error
+        delete Object.prototype; // This will cause an error
+
+        var eval = 3.14;         // This will cause an error
+
+        var arguments = 3.14;    // This will cause an error
+
+        with (Math){f = cos(2)}; // This will cause an error
+
+        eval ("var h = 2");
+        alert (h);               // This will cause an error
+
+        function myFunction() {
+            y = 3.14;    // This will cause an error (y is not defined).
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Page</title>
+    <style>
+        section {
+            position: relative;
+            ;
+            padding: 5px 25px;
+            border: 5px solid #191919;
+            display: inline-block;
+        }
+        .data {
+            height: auto;
+            padding: 4px;
+            margin: 3px;
+            text-align: left;
+            background-color: #cccccc;
+            border: 1px solid #b2b2b2;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h1>Login here</h1>
+    </center>
+    <main>
+        <center>
+            <section>
+                <form action="auth.php" method="get">
+                <table>
+                    <tr>
+                        <td>
+                            <span>User Name: </span>
+                        </td>
+                        <td>
+                            <input type="email" id="username" name="username" placeholder="Enter username" max="20" autofocus required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>Password: </span>
+                        </td>
+                        <td>
+                            <input type="password" id="password" name="password" pattern="[A-Za-z0-9]{6,15}" placeholder="Enter password" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Login" style="float:right;">
+                        </td>
+                    </tr>
+                        
+                </form>
+            </section>
+        </center>
+        <br>
+    </main>
+</body>
+
+</html>

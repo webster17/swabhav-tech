@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Numbers API</title>
+
+    <style>
+        section {
+            position: relative;
+            ;
+            padding: 5px 25px;
+            border: 5px solid #191919;
+            display: inline-block;
+        }
+
+        .data {
+            height: auto;
+            padding: 4px;
+            margin: 3px;
+            text-align: left;
+            background-color: #cccccc;
+            border: 1px solid #b2b2b2;
+        }
+
+        .delete,
+        .date {
+            margin-left: 30px;
+            margin-top: -2px;
+            float: right;
+        }
+
+        span {
+            width: 20em;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <center>
+            <section>
+                <input type="text" id="number" placeholder="Enter number..." autofocus>
+                <input type="button" id="search" value="Search">
+                <input type="button" id="hello" value="Hello">
+            </section>
+        </center>
+        <br>
+        <center>
+            <section style="border:5px solid #999999">
+                <div id="event-list">
+                </div>
+            </section>
+            <section style="border:5px solid #999999">
+                <div id="data-list">
+                </div>
+            </section>
+        </center>
+    </main>
+
+    <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
+    <script>
+
+        (function () {
+
+            "use strict";
+            var number = $('#number');
+            var search = $('#search');
+            var hello = $('#hello');
+
+            var dataList = $('#data-list');
+            var eventList = $('#event-list');
+
+            $(number).bind('keyup', function (event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    $(search).click();
+                }
+            });
+
+            $(hello).on('click', function () {
+                displayList('Hello Pressed!', eventList, 'lightblue');
+                displayList('Hii, welcome sir! Pleare enter number in search box to know something about particular number.', dataList, 'lightblue');
+                $(number).focus();
+
+            });
+
+            $(search).on('click', function () {
+                if (!isNaN($(number).val()) && $(number).val() != "") {
+
+                    $.ajax({
+                        method: 'GET',
+                        url: "http://numbersapi.com/" + $(number).val(),
+                        beforeSend: function () {
+                            displayList('Search Pressed', eventList, 'lightgreen');
+                        },
+                        success: function (data) {
+                            displayList(data, dataList, 'lightgreen');
+                            $(number).val("");
+                        },
+                        error: function (request, status, error) {
+                            $(loadButtonElement).text("Retry");
+                            displayList('Something went wrong!', dataList, 'red');
+                        },
+                    });
+                } else {
+                    alert("Input data must be number");
+                }
+                $(number).focus();
+            });
+
+            function displayList(dataListValue, listElement, colorName) {
+                var dateNode = "";
+
+                if ($(listElement).attr('id') == 'data-list') {
+                    var currentdate = new Date();
+                    var dateTime = currentdate.getDate() + "/"
+                        + (currentdate.getMonth() + 1) + "/"
+                        + currentdate.getFullYear() + " @ "
+                        + currentdate.getHours() + ":"
+                        + currentdate.getMinutes() + ":"
+                        + currentdate.getSeconds();
+                    dateNode = '<button class="date">' + dateTime + '</button>';
+                }
+
+                $(listElement).prepend('<div class="data" style="background-color:' + colorName + ';">'
+                    + '<span>' + dataListValue + '</span>'
+                    + '<button class="delete" value="' + dataListValue + '">X</button>' + dateNode + '</div>'
+                );
+            }
+
+            $(document).on('click', '.delete', function () {
+                $(this).closest('div.data').remove();
+                $(number).focus();
+            });
+        })();
+    </script>
+</body>
+
+</html>

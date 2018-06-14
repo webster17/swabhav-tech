@@ -1,0 +1,54 @@
+<!Doctype html>
+<html>
+
+<head>
+    <title>Video play Demo</title>
+</head>
+
+<body>
+    <center>
+        <div>
+            <video id="video1" width="420">
+                <source src="http://localhost/jquery-app/js-to-jquery/resources/sample-video.mp4" type="video/mp4">
+            </video>
+            <br>
+            <Button id="play">Play</Button>
+            <Button id="pause" style="display: none;">Pause</Button>
+            <Button id="restart">Restart</Button>
+            <Button id="reload">Reload</Button>
+        </div>
+    </center>
+
+    <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
+    <script>
+        (function () {
+            "use strict";
+            var myVideo = $("#video1");
+            var play = $('#play');
+            var pause = $('#pause');
+            var reload = $('#reload');
+            var restart = $('#restart');
+
+            $(play).on('click', function () {
+                $(myVideo).get(0).play();
+                $(play).hide();
+                $(pause).show();
+            });
+            $(pause).on('click', function () {
+                $(myVideo).get(0).pause();
+                $(pause).hide();
+                $(play).show();
+            });
+            $(restart).on('click', function(){
+                $(myVideo).attr('currentTime', 0);
+            });
+            $(reload).on('click', function () {
+                $(myVideo).get(0).load();
+                $(pause).hide();
+                $(play).show();
+            });
+        })();
+    </script>
+</body>
+
+</html>

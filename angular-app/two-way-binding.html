@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJs - Binding</title>
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+    <style>
+        .rounded {
+            border-radius: 15px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" ng-app="myModule" ng-controller="EmployeeController">
+        <div class="row mt-3 justify-content-center rounded bg-light align-center">
+            <div class="col"></div>
+            <div class="col-xl-12 text-center rounded vertical-center">
+                <h3> AngularJs 2-way-binding using
+                    <kbd>ng-model</kbd>
+                </h3>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col-xl-6 col-sm-6">
+                <form action="javascript:void(0)">
+                    <div class="form-group">
+                        <label for="id"> Employee ID:</label>
+                        <input type="number" class="form-control" id="id" placeholder="Enter EmpId" ng-model="employee.id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter name" ng-model="employee.name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="job-profile">Job Profile:</label>
+                        <input type="text" class="form-control" id="job-profile" ng-model="employee.jobProfile" placeholder="Enter job profile" name="job-profile">
+                    </div>
+                    <!-- <button class="btn bg-dark btn-block text-light">Update Profile</button> -->
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="row mt-5">
+                <div class="col-xl-12 text-center rounded mt-1 p-1 bg-primary text-light">Employee ID : {{ employee.id }}</div>
+                <div class="col-xl-12 text-center rounded mt-1 p-1 bg-secondary text-light">User Name : {{ employee.name }}</div>
+                <div class="col-xl-12 text-center rounded mt-1 p-1 bg-dark text-light">User Name : {{ employee.jobProfile }}</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+    <script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="http://localhost/angular-app/resources/angular/angular.js"></script>
+    <script src="http://localhost/angular-app/js/module.js"></script>
+    <script>
+        angular.module('myModule', []);
+        angular.module('myModule').controller('EmployeeController', function ($scope) {
+            $scope.employee = {
+                name: 'Santosh Rajpoot',
+                id: 1198007,
+                jobProfile: 'Software Developer'
+            }
+        });
+
+    </script>
+</body>
+
+</html>

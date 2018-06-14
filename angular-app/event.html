@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJs - Module</title>
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+    <style>
+        .rounded {
+            border-radius: 15px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" ng-app="myModule">
+        <div class="row mt-3 justify-content-center rounded bg-light align-center">
+            <div class="col"></div>
+            <div class="col-xl-12 text-center rounded vertical-center">
+                <h3> AngularJs Event
+                    <kbd>ng-click</kbd> to load profile</h3>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-5 justify-content-center" ng-controller="ProfileController">
+            <div class="col-xl-12 text-center p-1 text-light">
+                <button class="btn bg-dark text-light" ng-click="loadProfile()">Load Profile</button>
+            </div>
+            <div class="row" ng-show="showProfile">
+                <div class="col-xl-12 text-center rounded mt-3 p-1 bg-primary text-light">User Name : {{ profile.name }}</div>
+                <div class="col-xl-12 text-center rounded mt-1 p-1 bg-secondary text-light">
+                    <img class="img-fluid" ng-src="{{ profile.img }}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+    <script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="http://localhost/angular-app/resources/angular/angular.js"></script>
+    <script src="http://localhost/angular-app/js/module.js"></script>
+    <script>
+        angular.module('myModule', []);
+        angular.module('myModule').controller('ProfileController', function ($scope) {
+            $scope.showProfile = false;
+            $scope.profile = {
+                name: 'Santosh Rajpoot',
+                img: 'http://localhost/angular-app/resources/images/profile.png'
+            };
+            $scope.loadProfile = function () {
+                $scope.showProfile = !$scope.showProfile;
+            };
+        });
+
+    </script>
+</body>
+
+</html>

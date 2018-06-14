@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+        
+    <h2>Create Object from JSON String</h2>    
+    <p id="demo"></p>
+    <h3>String to JSON object</h3>
+    <P id="parse"></P>
+    <h3>JSON object to string</h3>
+    <p id="stringify"></p>
+    
+    <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
+    <script>
+        var parse = document.getElementById('parse');
+        var stringify = document.getElementById('stringify');
+        var obj = JSON.parse('{ "name":"Santosh", "age":21, "city":"Mumbai"}');
+        document.getElementById("demo").innerHTML = obj.name + ", " + obj.age;
+
+        parse.innerHTML = JSON.parse('{ "name":"Santosh", "age":21, "city":"Mumbai"}');
+        console.log(obj);
+        stringify.innerHTML = JSON.stringify(obj);
+
+    </script>
+</body>
+</html>

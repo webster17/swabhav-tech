@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ajax - XMLHttpRequest</title>
+</head>
+
+<body>
+    <main>
+        <div style="height:12em;">
+            <h1>The XMLHttpRequest Object</h1>
+            <button type="button" id="load">Load Content</button>
+            <button type="button" id="reset">Clear Content</button>
+        </div>
+        <div id="content">
+        </div>
+    </main>
+
+    <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
+    <script>
+        (function () {
+            "use strict";
+            var content = $('#content');
+
+            $('#load').on('click', function () {
+
+                $.ajax({
+                    method: 'GET',
+                    url: "http://localhost/jquery-app/js-to-jquery/resources/ajax-info.txt",
+                    beforeSend: function () {
+                        $(content).html("");
+                    },
+                    success: function (data) {
+                        $(content).html(data).fadeIn('slow');
+                    },
+                    error: function (request, status, error) {
+                        $(content).html("Not Loaded due to some reason!").fadeIn('slow');
+                    },
+                });
+
+            });
+
+            $('#reset').on('click', function () {
+                $(content).html("").fadeOut('slow');
+            });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCType html>
+<html>
+
+<head>
+    <title>First form</title>
+</head>
+
+<body>
+    <main>
+        <div>
+            <div style="float:left;">
+                <label>Name:</label>
+            </div>
+            <div style="float:left; height:10px; width:50px;"></div>
+            <div style="float:left;">
+                <input type="text" id="name" placeholder="Enter your name here" autofocus>
+            </div>
+            <div style="float:left; height:10px; width:50px;"></div>
+            <div style="float:left;">
+                <input type="button" id="submit" value="Add into List">
+            </div>
+        </div>
+        <div style="height:100px; width: 100px;"></div>
+        <div>
+            <div style="float:left;">Entered name:</div>
+            <div style="margin-left: 20px; float: left;" id="display-name"></div>
+        </div>
+        <div style="height:50px; width: 100px;"></div>
+        <div>
+            <div style="float:left">List of Entered name:</div>
+            <div style="margin-left: 20px; float: left;" id="display-entered-name"></div>
+        </div>
+    </main>
+
+    <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
+    <script>
+        (function () {
+            "use strict";
+            var nameInput = $('#name');
+            var nameOutput = $('#display-name');
+            var addnameButton = $('#submit');
+            var nameList = $('#display-entered-name');
+
+            $(nameInput).bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $(addnameButton).click();   
+                } else {
+                    $(nameOutput).html($(nameInput).val());
+                }
+            });
+
+            $(addnameButton).on('click', function () {
+                $(nameList).prepend('<div>' + nameInput.val() + '</div>');
+                $(nameInput).val("").focus();
+                $(nameOutput).html("");
+            });
+
+        })();
+    </script>
+</body>
+
+</html>

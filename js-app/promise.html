@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promise for asynchronous call</title>
+</head>
+
+<body>
+    <script>
+
+
+        var dataService = function () {
+            var obj = {};
+            var r;
+            obj.getData = function () {
+                return Math.round(Math.random() * 10);
+            }
+            obj.getDataSynchronous = function (callbackFunction) {
+                r = Math.round(Math.random() * 100);
+                if (r > 50)
+                    callbackFunction("Success: " + r);
+                else
+                    callbackFunction("NOT_ALLOWED!");
+            }
+            obj.getDataAsynchronous = function (callbackFunction) {
+                window.setTimeout(function () {
+                    r = Math.round(Math.random() * 100);
+                    if (r > 50)
+                        callbackFunction("Success: " + r);
+                    else
+                        callbackFunction("NOT_ALLOWED!");
+                }, 0);
+            }
+            obj.getDataPromise = function(){
+                var p = new Promise(function(fnResolver, fnRejected){
+                    r = Math.round(Math.random() * 100);
+                    if (r > 50)
+                        fnResolver(r);
+                    else{
+                        var exception = new Error("NOT_ALLOWED!");
+                        fnRejected(exception);
+                    }
+                });
+                
+                return p;
+            }
+            return obj;
+        }();
+
+        function fnSuccess(data){
+            console.log('Inside Success');
+            console.log('Data: '+data);
+        }
+        function fnError(errorMsg){
+            console.log('Inside Error');
+            console.log('Error: '+errorMsg);
+        }
+
+
+
+        var d = dataService.getData();
+        console.log("Random number: " + d);
+
+        dataService.getDataSynchronous(function (r) {
+            console.log("Synchronous: " + r);
+        });
+
+        dataService.getDataAsynchronous(function (r) {
+            console.log("Asynchronous: " + r);
+        });
+
+        dataService.getDataPromise().then(fnSuccess, fnError);
+        
+        dataService.getDataPromise().then(fnSuccess, fnError);
+        
+        dataService.getDataPromise().then(fnSuccess, fnError);
+
+        console.log("End of the script!");
+    </script>
+</body>
+
+</html>

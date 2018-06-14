@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJs - Binding</title>
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container" ng-app="numbersApi" ng-controller="numbersApiController">
+        <div class="row mt-3 justify-content-center rounded bg-light align-center">
+            <div class="col"></div>
+            <div class="col-xl-12 text-center rounded vertical-center">
+                <h3> AngularJs -
+                    <kbd>$http</kbd>
+                    to make Ajax request
+                </h3>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-10 m-0 p-0 mx-auto col-xs-12">
+                <form action="javascript:void(0)">
+                    <div class="row mb-2">
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend1">Number</span>
+                                </div>
+                                <input type="number" class="form-control" ng-class="numberInputClass" ng-model="number" placeholder="eg. 25" aria-describedby="inputGroupPrepend1">
+                                <div class="invalid-feedback">Number must be a integer value!</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn bg-dark btn-block text-light" ng-click="searchQuote()">Search Quote</button>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="form-row mb-1 fadeIn fadeOut" ng-show="showStatus">
+                            <label ng-class="textClass">{{ statusData }}</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-5 justify-content-center">
+            <table class="table table-hover">
+                <tbody>
+                    <tr ng-repeat="quote in quotes">
+                        <td>{{ quote }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+    <script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="http://localhost/angular-app/resources/angular/angular.js"></script>
+    <script src="http://localhost/angular-app/js/module.js"></script>
+    <script>
+        angular.module('numbersApi', []).controller('numbersApiController', function ($scope, $http, $timeout) {
+
+            $scope.quotes = [];
+
+            $scope.resetForm = function () {
+                $scope.number = '';
+                $scope.numberInputClass = '';
+            };
+
+            $scope.resetStatusMsg = function () {
+                $scope.showStatus = false;
+                $scope.textClass = '';
+                $scope.statusData = '';
+            }
+
+            $scope.isValidNumber = function () {
+                valid = true;
+                $scope.numberInputClass = 'is-valid';
+                if ($scope.number == "" || isNaN($scope.number)) {
+                    $scope.numberInputClass = 'is-invalid';
+                    valid = false;
+                }
+                return valid;
+            };
+
+            $scope.showStatusMessage = function (textClassName, msg) {
+                $scope.statusData = msg;
+                $scope.showStatus = true;
+                $scope.textClass = textClassName;
+
+                $timeout(function () {
+                    $scope.resetStatusMsg();
+                }, 2000);
+            }
+
+            $scope.successResponse = function (response) {
+                $scope.showStatusMessage('text-success', 'Successfully Quote fetched for a number' + $scope.number + '.');
+                $scope.quotes.push(response.data);
+            }
+
+            $scope.errorResponse = function (response) {
+                $scope.showStatusMessage('text-danger', response.statusText);
+            }
+
+            $scope.searchQuote = function () {
+                if ($scope.isValidNumber()) {
+                    $http({
+                        method: "GET",
+                        url: "http://numbersapi.com/" + $scope.number
+                    }).then($scope.successResponse, $scope.errorResponse);
+                    $scope.resetForm();
+                }
+            };
+
+            $scope.employees = [];
+            $scope.resetForm();
+            $scope.resetStatusMsg();
+
+        });
+
+    </script>
+</body>
+
+</html>

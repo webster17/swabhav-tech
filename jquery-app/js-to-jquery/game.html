@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .row {
+            width: 100%;
+            height: 50px;
+        }
+
+        .container {
+            float: left;
+            margin-right: 8%;
+        }
+
+        div.container:last-child {
+            margin-right: 0%;
+        }
+
+        .ball {
+            float: left;
+            height: 35px;
+            width: 35px;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 50%;
+            background-color: blueviolet;
+            display: block;
+        }
+
+        .bucket {
+            top: 10em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="container">
+            <button class="game-start" id="game-start">Start Game</button>
+        </div>
+        <div class="container">
+            <button class="game-reset" id="game-reset">Reset Game</button>
+        </div>
+        <div class="container">
+            Attempt:
+            <label class="game-attempt" id="game-attempt">5</label>
+        </div>
+        <div class="container">
+            Score:
+            <label class="game-score" id="game-score">0</label>
+        </div>
+        <div class="container">
+            Lowest Attempt:
+            <label class="game-heighest-score" id="game-heighest-score"></label>
+        </div>
+    </div>
+    <br>
+    <section class="bucket">
+        <div class="row" id="ball-bucket">
+        </div>
+    </section>
+
+
+    <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
+    <script>
+        (function () {
+
+            "use strict";
+            var gameStart = $('#game-start');
+            var gameReset = $('#game-reset');
+            var gameAttempt = $('#game-attempt');
+            var gameScore = $('#game-score');
+            var gameHeighestScore = $('#game-heighest-score');
+            var ballBucket = $('#ball-bucket');
+            var randomBall = 0;
+            var attempt = 5;
+            var score = 0;
+
+            if (localStorage.heighestScore === null) {
+                localStorage.heighestScore = 0;
+            }
+            $(gameHeighestScore).html(localStorage.heighestScore);
+
+            $(gameReset).on('click', function(){
+                $(gameStart).click();
+            });
+
+            $(gameStart).on('click', function () {
+
+                attempt = 5;
+                score = 0;
+
+                $(gameScore).html(score);
+                $(gameAttempt).html(attempt);
+                $(gameHeighestScore).html(localStorage.heighestScore);
+                $(ballBucket).html("");
+
+                for (var i = 0; i < 50; i++) {
+                    $(ballBucket).append('<button class="ball" value="' + (i + 1) + '">' + (i + 1) + '</button>');
+                }
+
+                randomBall = Math.round((Math.random() * 100000000000000) % 50);
+                console.log(randomBall);
+            });
+
+            $(document).on('click', '.ball', function () {
+                score += 1;
+                $(gameScore).html(score);
+                if ($(this).val() == randomBall) {
+                    $(this).css({ 'background-color': 'yellow' });
+                    if (score < localStorage.heighestScore) {
+                        localStorage.heighestScore = score;
+                        $(gameHeighestScore).html(score);
+                    } else {
+                        $(gameScore).html(score);
+                    }
+                    $(ballBucket).html("<h2>You won at attempt: " + score + "</h2>");
+                    setTimeout(function () {
+                        $(gameStart).click();
+                    }, 3000);
+                }
+                else {
+                    if ($(this).val() < randomBall) {
+                        $(this).css({ 'background-color': 'red' });
+                    }
+                    else {
+                        $(this).css({ 'background-color': 'green' });
+                    }
+
+                    attempt -= 1;
+                    if (attempt == 0) {
+                        $(ballBucket).html("<h2>You Loss!<h2><br><h4>Try again!<h4>");
+                        setTimeout(function () {
+                            $(gameStart).click();
+                        }, 3000);
+                    } else {
+                        $(gameAttempt).html(attempt);
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

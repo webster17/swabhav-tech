@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJs - Module</title>
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+    <style>
+        .rounded {
+            border-radius: 15px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" ng-app="moduleA">
+        <div class="row mt-3 justify-content-center rounded bg-warning">
+            <div class="col"></div>
+            <div class="col-xl-12 text-center rounded vertical-center">
+                <h1> AngularJs Timeout to change company name</h1>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-3 justify-content-center" ng-controller="CompanyController">
+            <div class="col-xl-12 text-center rounded p-1 bg-primary text-light">Company Name : {{ companyName }}</div>
+            <div class="col-xl-12 text-center rounded p-1 bg-secondary text-light">Developer Name : {{ developer.name }}</div>
+        </div>
+    </div>
+
+    <script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+    <script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="http://localhost/angular-app/resources/angular/angular.js"></script>
+    <script src="http://localhost/angular-app/js/module.js"></script>
+    <script>
+        angular.module('moduleA', []);
+        angular.module('moduleA').controller('CompanyController', function ($rootScope, $scope, $timeout) {
+            $rootScope.companyName = "Techsperia";
+            $scope.developer = {
+                name: 'Santosh Rajpoot'
+            }
+            
+            $timeout( function(){
+                $rootScope.companyName='Swabhav Techlabs';
+            },3000);
+        });
+
+    </script>
+</body>
+
+</html>
