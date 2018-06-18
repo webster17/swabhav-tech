@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promise for asynchronous call</title>
+</head>
+
+<body>
+    <script>
+        var dataService = function () {
+            var obj = {};
+            var r;
+			var precision;
+			var counter;
+            obj.getDataPromise = function(){
+				r = Math.round(Math.random() * 100);
+				precision = 40;
+				counter = 1;
+                var p = new Promise(function(fnResolver, fnRejected){
+					console.log(r);
+                    if (r > precision+(10*counter++))
+                        fnResolver(r);
+                    else{
+                        var exception = new Error("NOT_ALLOWED!");
+                        fnRejected(exception);
+                    }
+                });
+                return p;
+            }
+            return obj;
+        }();
+
+        function fnDataSuccess(data){
+            console.log('Data: '+data);
+        }
+        function fnDataError(errorMsg){
+            console.log('Data: '+errorMsg);
+        }		
+        function fnPrecisedDataSuccess(data){
+            console.log('Precised Data: '+data);
+        }
+        function fnPrecisedDataSuccess(errorMsg){
+            console.log('Precised Data Error: '+errorMsg);
+        }
+		console.log("Script startd...");
+        dataService.getDataPromise().then(fnDataSuccess, fnDataError).then(fnPrecisedDataSuccess, fnPrecisedDataSuccess);
+        console.log("End of the script!");
+    </script>
+</body>
+
+</html>

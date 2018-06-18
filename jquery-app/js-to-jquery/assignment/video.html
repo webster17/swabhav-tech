@@ -40,7 +40,9 @@
                 $(play).show();
             });
             $(restart).on('click', function(){
-                $(myVideo).attr('currentTime', 0);
+                $(pause).click();
+                myVideo.currentTime=0;
+                $(play).click();
             });
             $(reload).on('click', function () {
                 $(myVideo).get(0).load();

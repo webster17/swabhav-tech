@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ES6</title>
+</head>
+<body>
+<script>
+	//block scoped functions using {}
+	{
+		function blockScopedVariables(){
+			//block scoped variable
+			for(let loopVar= 0; loopVar<3; loopVar++){
+				document.write("<br>loopVar in for: "+loopVar);
+			}
+			try{
+				document.write("<br>loopVar outside FORLOOP: "+loopVar);
+			}catch(e){
+				document.write("<br>loopVar outside FORLOOP: undefined");
+			}
+		}
+		function withoutblockScopedVariables(){
+			for(var loopVar= 0; loopVar<3; loopVar++){
+				document.write("<br>loopVar in for: "+loopVar);
+			}
+			document.write("<br>loopVar outside FORLOOP: "+loopVar);
+		}
+		
+		withoutblockScopedVariables();
+		document.write('<br>');
+		blockScopedVariables();
+	
+	}
+</script>
+<script>
+	//classes and inheritance
+	class Car{
+		constructor (name, maxSpeed){
+			this.name = name;
+			this.maxSpeed = maxSpeed;
+		}
+		display(){
+			document.write("<br>Car name: "+this.name);
+			document.write("<br>Max Speed: "+this.maxSpeed)
+		}
+	}
+	class SportsCar extends Car{
+		constructor (name, maxSpeed, nitro){
+			super(name, maxSpeed);
+			this.nitro = nitro;
+		}
+		dispaly(){
+			super.display();
+			document.write('<br>Nitro: '+this.nitro);
+		}
+	}
+	
+	document.write("<br>");
+	var car = new Car('Honda', 50);
+	car.display();
+	document.write("<br>");
+	var sportsCar = new SportsCar('Ferrari', 100, 5);
+	sportsCar.dispaly();	
+</script>
+
+<script>
+	//Arrow Functions
+	var EvenOddValidator = (value => {
+		if (value%2 == 0)
+			document.write("<br>Value is Even number.");
+		else
+			document.write("<br>Value is Odd number.");
+	});
+	document.write('<br>');
+	EvenOddValidator(12);
+	EvenOddValidator(35);
+</script>
+
+<script>
+	//constant 
+	const pi = 3.14;
+	document.write("<br><br>PI: "+pi);
+	
+	try{
+		pi = 3.27;
+	}
+	catch(e){
+		document.write("<br>After assigned 3.27 PI : "+pi);
+	}
+</script>
+
+<script>
+	//object manipulation
+	const object1 = {
+	  a: 1,
+	  b: 2,
+	  c: 3
+	};
+
+	
+	console.log("Before assign: Object1: ");
+	console.log(object1);
+	
+	const object2 = Object.assign(object1 ,{c: 4, d: 5});
+	console.log("Object2: ");
+	console.log(object2);
+	
+	console.log("After assign Object1: ");
+	console.log(object1);
+	
+	const{
+	a,
+	b,
+	c,
+	d
+	}=object1;
+	console.log("A: "+a+"  B: "+b+"  C: "+c+"  D:"+d);
+</script>
+
+<script src="http://localhost/js-app/js/math.js"></script>
+<script src="http://localhost/js-app/js/math-extend1.js"></script>
+<script src="http://localhost/js-app/js/math-extend2.js"></script>
+
+</body>
+</html>

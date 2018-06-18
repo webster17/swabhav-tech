@@ -28,8 +28,8 @@
         var CustomerProject = CustomerProject || {};
         CustomerProject.Developer1 = CustomerProject.developer1 || {};
         CustomerProject.Developer2 = CustomerProject.developer2 || {}; 
-        var name1 = document.getElementById('name1');
-        var name2 = document.getElementById('name2');
+        var name1 = $('#name1');
+        var name2 = $('#name2');
 
 
         CustomerProject.Developer1.customer = function(firstName, lastName){
@@ -51,8 +51,8 @@
             return this;
         }
 
-        name1.innerHTML = new CustomerProject.Developer1.customer("Santosh", "Dangodra").getFullName();
-        name2.innerHTML = new CustomerProject.Developer2.customer('Santosh', 'B', 'Dangodra').getFullName();
+        $(name1).html(new CustomerProject.Developer1.customer("Santosh", "Dangodra").getFullName());
+        $(name2).html(new CustomerProject.Developer2.customer('Santosh', 'B', 'Dangodra').getFullName());
     </script>
 </body>
 </html>

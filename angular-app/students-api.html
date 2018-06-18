@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student API</title>
+
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid" style="margin-top: 1em;" ng-app="studentsApi" ng-controller="studentsApiController">
+        <div class="row">
+            <div class="col-md-8 mx-auto jumbotron">
+                <div class="col-sm-6 mb-2 float-left">
+                    <button type="button" class="btn btn-success btn-block" ng-click="loadAllStudents()" ng-bind-html="studentDataLoadButtonElement"></button>
+                </div>
+                <div class="col-sm-6 mb-2 float-left">
+                    <button type="button" class="btn btn-success btn-block" ng-click="showForm()">Add New Student</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-10 mx-auto jumbotron">
+                    <center>
+                        <table class="table table-responsive-lg table-hover w-100" id="table">
+                            <caption>List of users</caption>
+                            <thead>
+                                <tr>
+                                    <th scoe="col">Roll No</th>
+                                    <th scoe="col">Name</th>
+                                    <th scoe="col">Email</th>
+                                    <th scoe="col">DOB</th>
+                                    <th scoe="col">Gender</th>
+                                    <th scoe="col">Age</th>
+                                    <th scoe="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="stud in students">
+                                    <td class="row">{{ stud.rollNo }}</td>
+                                    <td>{{ stud.name }}</td>
+                                    <td>{{ stud.email }}</td>
+                                    <td>{{ stud.dob }}</td>
+                                    <td>{{ (stud.isMale)?'Male':'Female' }}</td>
+                                    <td>{{ stud.age }}</td>
+                                    <td>
+                                        <button value="student.rollNo" class='btn mb-1 mr-2 btn-outline-primary btn-sm update'>
+                                            <i class='fa fa-pencil-square'></i>
+                                        </button>
+                                        <button ng-click="deleteStudent(stud.rollNo)" ng-disabled="disableDeleteButtonElement"  ng-bind-html="studentDataDeleteButtonElement"
+                                            class='btn  btn-outline-danger btn-sm delete'></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" visible="showModal" aria-labelledby="modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-label" ng-bind-html="modalLabelElement"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form action="javascript:void(0)" id="student-form" name="student-form" novalidate>
+                                <div class="row mb-2">
+                                    <div class="col-md-3">Roll No:</div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="number" ng-class="rollNoInputClass" for="student-form" ng-model="student.rollNo" placeholder="Enter rollno">
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-3">Name:</div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" ng-class="nameInputClass" ng-model="student.name" placeholder="Enter name">
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-3">Email:</div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="email" name="email" ng-class="emailInputClass" ng-model="student.email" data-validation="email"
+                                            placeholder="Enter email">
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-3">DOB:</div>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="date" ng-class="dobInputClass" ng-model="student.dob" placeholder="Enter dob">
+                                        <div class="invalid-feedback">
+                                            Please choose a username.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">Gender:</div>
+                                    <div class="col-md-9">
+                                        <select class="form-control" ng-class="genderInputClass" ng-model="student.isMale">
+                                            <option value="">Select a Gender</option>
+                                            <option value="true">Male</option>
+                                            <option value="false">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="create-student" ng-click="addNewStudent()" ng-bind-html="submitButtonElement"></button>
+                        <button type="button" class="btn btn-default make-close" id="close" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+    <script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="http://localhost/angular-app/resources/angular/angular.js"></script>
+    <script>
+
+        angular.module('studentsApi', []).controller('studentsApiController', function ($scope, $sce, dataService, $timeout) {
+
+
+            $scope.students = [];
+            var modalElement = angular.element('#myModal');
+            $scope.studentDataLoadButtonElement = $sce.trustAsHtml('Load Student Data');
+            $scope.studentDataDeleteButtonElement = $sce.trustAsHtml('<i class="fa fa-trash"></i>');
+
+            $scope.resetForm = function () {
+                $scope.student = {
+                    rollNo: '',
+                    name: '',
+                    email: '',
+                    isMale: '',
+                    dob: '',
+                    age: ''
+                }
+                $scope.isaddable = true;
+            }
+
+            $scope.loadAllStudents = function () {
+                $scope.studentDataLoadButtonElement = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i> Loading...');
+                dataService.getAllStudents('GET').then(function (response) {
+                    $scope.students = response.data;
+                    $scope.studentDataLoadButtonElement = $sce.trustAsHtml('Loaded');
+                    $timeout(function () {
+                        $scope.studentDataLoadButtonElement = $sce.trustAsHtml('Load Student Data');
+                    }, 1500);
+                }, function () {
+                    console.log(' Something went wrong!');
+                });
+            };
+
+            $scope.openModal = function () {
+                modalElement.modal('show');
+            }
+
+            $scope.closeModal = function () {
+                modalElement.modal('hide');
+            }
+            
+            $scope.showForm = function(rollNo = ''){
+                $scope.resetForm();
+                if(rollNo === ''){
+                    $scope.submitButtonElement = $scope.modalLabelElement = $sce.trustAsHtml('Add New Student');
+                }
+                $scope.openModal();
+            }
+
+            $scope.addNewStudent = function () {
+
+                $scope.closeModal();
+            }
+            
+            $scope.loadAllStudents();
+
+            $scope.isValidStudent = function () {
+                function isValidData(student) {
+                    var hasError = 1;
+                    $('.form-control').removeClass('has-error');
+
+                    if (student.rollNo == "" || isNaN(student.rollNo) || student.rollNo < 1) {
+                        $(rollNoInputClass).addClass('has-error');
+                        hasError = 0;
+                    }
+                    if (student.name == "" || !isNaN(student.name)) {
+                        $(nameInputClass).addClass('has-error');
+                        hasError = 0;
+                    }
+                    if (student.email == "") {
+                        $(emailInputClass).addClass('has-error');
+                        hasError = 0;
+                    }
+                    if (student.isMale == "") {
+                        $(genderInputClass).addClass('has-error');
+                        hasError = 0;
+                    }
+                    if (!Date.parse($("#dob").val())) {
+                        $(dobInputClass).addClass('has-error');
+                        hasError = 0;
+                    }
+
+                    return hasError;
+                }
+            }
+
+            $scope.deleteStudent = function (rollNo) {
+                $scope.disableDeleteButtonElement = true
+                $scope.studentDataDeleteButtonElement = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i>');
+                dataService.getAllStudents('DELETE', rollNo).then(function (response) {
+                    console.log(response);
+                    $scope.students = response.data;
+                    $scope.studentDataDeleteButtonElement = $sce.trustAsHtml('<i class="fa fa-check"></i>');
+                }, function () {
+                    console.log(' Something went wrong!');
+                }).then(function () {
+                    $scope.disableDeleteButtonElement = false;
+                    $scope.studentDataDeleteButtonElement = $sce.trustAsHtml('<i class="fa fa-trash"></i>');
+                    $scope.loadAllStudents();
+                });
+            }
+
+
+            $scope.updateStudent = function (rollNo) {
+                $scope.disableDeleteButtonElement = true
+                $scope.studentDataDeleteButtonElement = $sce.trustAsHtml('<i class="fa fa-spinner fa-spin"></i>');
+                dataService.getAllStudents('DELETE', rollNo).then(function (response) {
+                    console.log(response);
+                    $scope.students = response.data;
+                    $scope.studentDataDeleteButtonElement = $sce.trustAsHtml('<i class="fa fa-check"></i>');
+                }, function () {
+                    console.log(' Something went wrong!');
+                }).then(function () {
+                    $scope.disableDeleteButtonElement = false;
+                    $scope.studentDataDeleteButtonElement = $sce.trustAsHtml('<i class="fa fa-trash"></i>');
+                    $scope.loadAllStudents();
+                });
+            }
+
+            /*
+                                $scope.resetForm = function () {
+                                    $scope.number = '';
+                                    $scope.numberInputClass = '';
+                                };
+            
+                                $scope.resetStatusMsg = function () {
+                                    $scope.showStatus = false;
+                                    $scope.textClass = '';
+                                    $scope.statusData = '';
+                                }
+            
+                                $scope.isValidNumber = function () {
+                                    valid = true;
+                                    $scope.numberInputClass = 'is-valid';
+                                    if ($scope.number == "" || isNaN($scope.number)) {
+                                        $scope.numberInputClass = 'is-invalid';
+                                        valid = false;
+                                    }
+                                    return valid;
+                                };
+            
+                                $scope.showStatusMessage = function (textClassName, msg) {
+                                    $scope.statusData = msg;
+                                    $scope.showStatus = true;
+                                    $scope.textClass = textClassName;
+            
+                                    $timeout(function () {
+                                        $scope.resetStatusMsg();
+                                    }, 2000);
+                                } 
+            
+                                */
+        });
+
+        angular.module('studentsApi').factory('dataService', function ($http) {
+            var obj = {};
+            var _url = 'http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students/';
+            obj.getAllStudents = function (method, extedndedUrl = '') {
+                return $http({ method: method, url: _url + extedndedUrl });
+            };
+            return obj;
+        });           
+    </script>
+</body>
+
+</html>

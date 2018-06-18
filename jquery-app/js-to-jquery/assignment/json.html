@@ -17,14 +17,14 @@
     
     <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
     <script>
-        var parse = document.getElementById('parse');
-        var stringify = document.getElementById('stringify');
+        var parse = $('#parse');
+        var stringify = $('#stringify');
         var obj = JSON.parse('{ "name":"Santosh", "age":21, "city":"Mumbai"}');
-        document.getElementById("demo").innerHTML = obj.name + ", " + obj.age;
+        $("#demo").html(obj.name + ", " + obj.age);
 
-        parse.innerHTML = JSON.parse('{ "name":"Santosh", "age":21, "city":"Mumbai"}');
+        $(parse).text(JSON.parse('{ "name":"Santosh", "age":21, "city":"Mumbai"}'));
         console.log(obj);
-        stringify.innerHTML = JSON.stringify(obj);
+        $(stringify).html(JSON.stringify(obj));
 
     </script>
 </body>

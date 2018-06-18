@@ -25,8 +25,8 @@
 
     <script src="http://localhost/jquery-app/js-to-jquery/resources/jquery.min.js"></script>
     <script>
-        name1 = document.getElementById('name1');
-        name2 = document.getElementById('name2');
+        name1 = $('#name1');
+        name2 = $('#name2');
 
         function customer(firstName, lastName){
             this.firstName = firstName;
@@ -45,8 +45,8 @@
             }
         }
 
-        name1.innerHTML = new customer("Santosh", "Dangodra").getFullName();
-        name2.innerHTML = new customer('Santosh', 'B', 'Dangodra').getFullName();
+        $(name1).html(new customer("Santosh", "Dangodra").getFullName());
+        $(name2).html(new customer('Santosh', 'B', 'Dangodra').getFullName());
     </script>
 </body>
 </html>
