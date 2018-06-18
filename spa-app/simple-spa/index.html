@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wiki Page</title>
+
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid jumbotron" ng-app="spa-app">
+        <section class="header bg-warning rounded p-3 mb-5">
+            <div class="row">
+                <div class="col-md-3">
+                    <a class="btn btn-lg btn-block btn-primary p-2 mb-2" href="#">Index</a>
+                </div>
+                <div class="col-md-3 ">
+                    <a class="btn btn-lg btn-block btn-primary p-2 mb-2" href="#home">Home</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-lg btn-block btn-primary p-2 mb-2" href="#about">About</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-lg btn-block btn-primary p-2 mb-2" href="#career">Carrer</a>
+                </div>
+            </div>
+        </section>
+        <section class="content bg-secondary p-5 rounded rounded justify-content-center">
+            <div class="row text-light mb-5 justify-content-center">
+                <h4>Dynamic content will be going to show below!</h4>
+            </div>
+            <div class="row bg-dark text-white p-4 rounded justify-content-center" ng-view>
+                <h2>This is index file content!</h2>
+                <h3>Hey, welcome! on
+                    <kbd>INDEX</kbd>
+                </h3>
+            </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+    <script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-route.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script> -->
+    <script src="app.js"></script>
+</body>
+
+</html>

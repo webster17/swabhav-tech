@@ -1,0 +1,62 @@
+<div class="row pl-4 pt-0 justify-content-center">
+    <div class="col-md-7 text-center">
+        <h1>Add New Student</h1>
+    </div>
+    <div class="col-md-7 border-bottom border-top">
+        <form action="javascript:void(0)" id="student-form" name="student-form" novalidate>
+            <div class="row mb-2 mt-3">
+                <div class="col-md-3">Roll No:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="number" ng-class="rollNoInputClass" for="student-form" ng-model="student.rollNo" placeholder="Enter rollno">
+                    <div class="invalid-feedback">
+                        Roll no must be numeric only!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Name:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" ng-class="nameInputClass" ng-model="student.name" placeholder="Enter name">
+                    <div class="invalid-feedback">
+                        Name must be alpha only!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Email:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="email" name="email" ng-class="emailInputClass" ng-model="student.email" data-validation="email"
+                        placeholder="Enter email">
+                    <div class="invalid-feedback">
+                        Enter valid email!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">DOB:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="date" ng-class="dateInputClass" ng-model="student.date" placeholder="Enter dob">
+                    <div class="invalid-feedback">
+                        Enter valid date!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3">Gender:</div>
+                <div class="col-md-9">
+                    <select class="form-control" ng-class="genderInputClass" ng-model="student.isMale">
+                        <option value="">Select a Gender</option>
+                        <option value="true">Male</option>
+                        <option value="false">Female</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Select any one!
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 mt-3 text-center">
+        <button type="button" class="btn px-5 btn-outline-primary" ng-click="addNewStudent()" ng-disabled="addDisabledStudentButtonElement" ng-bind-html="addStudentButtonElement">Add New Student</button>
+    </div>
+</div>

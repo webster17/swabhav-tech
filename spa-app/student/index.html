@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Student API</title>
+
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://localhost/angular-app/resources/bootstrap4/css/bootstrap.min.css">
+</head>
+
+<body ng-app="student-spa-app">
+
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <a class="navbar-brand" href="/spa-app/student/">Student SPA - APP</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ml-5" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item ml-3">
+                    <a class="nav-link" href="#view">All Students</a>
+                </li>
+                <li class="nav-item ml-3">
+                    <a class="nav-link" href="#add">Add Student</a>
+                </li>
+                <li class="nav-item ml-3">
+                    <a class="nav-link" href="#update">Update Student</a>
+                </li>
+                <li class="nav-item ml-3">
+                    <a class="nav-link" href="#delete">Delete Student</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+
+    <div class="container-fluid" style="margin-top: 1em;" ng-view>
+        sdhugvdsy
+    </div>
+
+    <script src="http://localhost/angular-app/resources/jquery.min.js"></script>
+    <script src="http://localhost/angular-app/resources/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-route.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

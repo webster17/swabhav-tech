@@ -42,18 +42,34 @@
     <script src="http://localhost/angular-app/resources/angular/angular.js"></script>
     <script src="http://localhost/angular-app/js/module.js"></script>
     <script>
-        angular.module('myModule', []);
-        angular.module('myModule').controller('ProfileController', function ($scope) {
-            $scope.showProfile = false;
-            $scope.profile = {
-                name: 'Santosh Rajpoot',
-                img: 'http://localhost/angular-app/resources/images/profile.png'
-            };
-            $scope.loadProfile = function () {
-                $scope.showProfile = !$scope.showProfile;
-            };
-        });
+        // angular.module('myModule', []);
+        // angular.module('myModule').controller('ProfileController', function ($scope) {
+        //     $scope.showProfile = false;
+        //     $scope.profile = {
+        //         name: 'Santosh Rajpoot',
+        //         img: 'http://localhost/angular-app/resources/images/profile.png'
+        //     };
+        //     $scope.loadProfile = function () {
+        //         $scope.showProfile = !$scope.showProfile;
+        //     };
+        // });
 
+        /*  Angular-Minified friendly code 
+        
+            angular.module('myModule', []);
+            angular.module('myModule').controller('ProfileController', ['$scope',function ($scope) {
+                $scope.showProfile = false;
+                $scope.profile = {
+                    name: 'Santosh Rajpoot',
+                    img: 'http://localhost/angular-app/resources/images/profile.png'
+                };
+                $scope.loadProfile = function () {
+                    $scope.showProfile = !$scope.showProfile;
+                };
+            }]);
+        */
+
+        angular.module("myModule",[]),angular.module("myModule").controller("ProfileController",["$scope",function(o){o.showProfile=!1,o.profile={name:"Santosh Rajpoot",img:"http://localhost/angular-app/resources/images/profile.png"},o.loadProfile=function(){o.showProfile=!o.showProfile}}]);
     </script>
 </body>
 
