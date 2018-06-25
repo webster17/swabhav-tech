@@ -1,0 +1,3 @@
+CREATE UNIQUE INDEX ssn_ndx1
+ON Test1 (ssn DESC)
+

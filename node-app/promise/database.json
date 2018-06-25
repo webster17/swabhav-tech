@@ -1,0 +1,46 @@
+{
+	"users": [
+		{
+			"id": 101,
+			"name": "santosh",
+			"repositories": [
+				{
+					"id": 501,
+					"name": "Git Repository",
+					"commits": [
+						"version 1 commit",
+						"version 1.1 commit",
+						"version 2 commit"
+					]
+				},
+				{
+					"id": 502,
+					"name": "Json Repository",
+					"commits": [
+						"demo commit",
+						"final production commit"
+					]
+				}
+			]
+		},
+		{
+			"id": 102,
+			"name": "pratik"
+		},
+		{
+			"id": 103,
+			"name": "sarvesh",
+			"repositories": [
+				{
+					"id": 503,
+					"name": "NodeJs Repository",
+					"commits": [
+						"ui version commit",
+						"middleware commit",
+						"back end commit"
+					]
+				}
+			]
+		}
+	]
+}

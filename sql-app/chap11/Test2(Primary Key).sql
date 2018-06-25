@@ -1,0 +1,3 @@
+ALTER TABLE Test2
+ADD CONSTRAINT ssn_pk PRIMARY KEY (ssn)
+

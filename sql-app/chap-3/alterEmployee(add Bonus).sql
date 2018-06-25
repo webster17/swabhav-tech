@@ -1,0 +1,3 @@
+ALTER TABLE Employee
+ADD bonus SMALLMONEY
+
