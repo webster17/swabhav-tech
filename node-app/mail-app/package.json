@@ -1,0 +1,12 @@
+{
+  "name": "mail-app",
+  "version": "1.0.0",
+  "description": "sending first mail ",
+  "main": "send-mail.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node send-mail"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,14 @@
+USE aurionpro;
+
+-- Drop view if it is exist
+-- DROP VIEW EMPLOYEES;
+
+-- Create view
+-- CREATE VIEW EMPLOYEES 
+-- AS 
+-- SELECT EMPNO, ENAME, JOB, DNAME, LOC AS DLOC 
+-- FROM EMP E, DEPT D 
+-- WHERE E.DEPTNO=D.DEPTNO;
+
+-- Display EMPLOYEES
+SELECT * FROM EMPLOYEES;
