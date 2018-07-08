@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Tic Tac Toe</string>
+    <string name="textViewStaticStatus">Status: </string>
+    <string name="btnReset">Reset</string>
+</resources>

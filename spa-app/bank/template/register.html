@@ -1,0 +1,59 @@
+<div class="row pl-4 pt-0 justify-content-center">
+    <div class="col-md-6" ng-form="signUpForm">
+        <div class="col-md-12 text-center">
+            <h1>Sign Up</h1>
+        </div>
+        <div class="col-md-12 border-bottom border-top">
+            <div class="row mb-2 mt-3">
+                <div class="col-md-3">User Name:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" ng-class="(signUpForm.userName.$pristine)?0:((signUpForm.userName.$invalid)?1:2)|class"
+                        name="userName" ng-model="credential.userName" placeholder="Enter user name" pattern="^[a-zA-Z ]+$" title="must be alpha only" required>
+                    <div class="invalid-feedback">
+                        User name must be alpha only!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Password:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="password" ng-class="(signUpForm.password.$pristine)?0:((signUpForm.password.$invalid)?1:2)|class"
+                        name="password" ng-model="credential.password" pattern=".{6,}"  placeholder="Enter password" required>
+                    <div class="invalid-feedback">
+                        Password must be 6 or more characters!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Re-type Password:</div>
+                <div class="col-md-9">  
+                    <input class="form-control" type="password" ng-class="(signUpForm.retypePassword.$pristine)?0:((credential.retypePassword===credential.password)?2:1)|class"
+                        name="retypePassword" ng-model="credential.retypePassword" placeholder="Enter password" required>
+                    <div class="invalid-feedback">
+                        password doesn't match!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Initial Amount: </div>
+                <div class="col-md-9">
+                    <input class="form-control" type="number" ng-class="(signUpForm.initialAmount.$pristine)?0:((signUpForm.initialAmount.$invalid)?1:2)|class"
+                        name="initialAmount" ng-model="credential.initialAmount" placeholder="Enter initial amount" min="1000" required>
+                    <div class="invalid-feedback">
+                        amount must be greater than 1000.
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <label class="form-check-label">Already have an account? <a href="#login">Login</a></label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mt-3 text-center">
+            <button type="button" class="btn px-5 btn-outline-primary" ng-click="signup()" ng-disabled="(signUpForm.$pristine || signUpForm.$invalid) || disabledLoginButtonElement"
+                ng-bind-html="loginButtonElement"></button>
+        </div>
+    </div>
+</div>

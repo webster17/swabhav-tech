@@ -1,0 +1,67 @@
+<div class="row pl-4 pt-0 justify-content-center">
+    <div class="col-md-7" ng-form="studentForm">
+        <div class="col-md-12 text-center">
+            <h1>Update Student</h1>
+        </div>
+        <div class="col-md-12 border-bottom border-top">
+            <div class="row mb-2 mt-3">
+                <div class="col-md-3">Roll No:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="number" ng-class="(studentForm.rollNo.$pristine)?0:((studentForm.rollNo.$invalid)?1:2)|class"
+                        for="student-form" name="rollNo" ng-model="student.rollNo" placeholder="Enter rollno" required>
+                    <div class="invalid-feedback">
+                        Roll no must be numeric only!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Name:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="text" ng-class="(studentForm.name.$pristine)?0:((studentForm.name.$invalid)?1:2)|class"
+                        name="name" pattern="[A-Za-z ]+" ng-model="student.name" placeholder="Enter name" required>
+                    <div class="invalid-feedback">
+                        Name must be alpha only!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">Email:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="email" name="email" ng-class="(studentForm.email.$pristine)?0:((studentForm.email.$invalid)?1:2)|class"
+                        ng-model="student.email" data-validation="email" placeholder="Enter email" required>
+                    <div class="invalid-feedback">
+                        Enter valid email!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-3">DOB:</div>
+                <div class="col-md-9">
+                    <input class="form-control" type="date" name="date" ng-class="(studentForm.date.$pristine)?0:((studentForm.date.$invalid)?1:2)|class"
+                        ng-model="student.date" placeholder="Enter dob" required>
+                    <div class="invalid-feedback">
+                        Enter valid date!
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3">Gender:</div>
+                <div class="col-md-9">
+                    <select class="form-control" name="isMale" ng-class="(studentForm.isMale.$pristine)?0:((studentForm.isMale.$invalid)?1:2)|class"
+                        ng-model="student.isMale" required>
+                        <option value="">Select a Gender</option>
+                        <option value="true">Male</option>
+                        <option value="false">Female</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Select any one!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mt-3 text-center">
+            <button type="button" class="btn px-5 btn-outline-primary" ng-click="updateStudent()" ng-disabled="(studentForm.$pristine || studentForm.$invalid) || updateDisabledButtonElement"
+                ng-bind-html="updateButtonElement">Update Student</button>
+        </div>
+    </div>
+</div>

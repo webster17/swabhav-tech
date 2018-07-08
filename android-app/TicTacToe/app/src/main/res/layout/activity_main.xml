@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="20dp" >
+
+        <TextView
+            android:id="@+id/textViewStaticStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|center_vertical"
+            android:textSize="20sp"
+            android:text="@string/textViewStaticStatus" />
+
+
+        <TextView
+            android:id="@+id/textViewStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/textViewStaticStatus"
+            android:gravity="center|center_vertical"
+            android:textSize="20sp" />
+        
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:text="@string/btnReset" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#0c0c0c"
+        android:paddingBottom="4dp">
+
+        <Button
+            android:id="@+id/cellBtn0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5"
+            android:layout_marginRight="4dp" />
+
+        <Button
+            android:id="@+id/cellBtn1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5"
+            android:layout_marginRight="4dp" />
+
+        <Button
+            android:id="@+id/cellBtn2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#0c0c0c"
+        android:paddingBottom="4dp">
+
+        <Button
+            android:id="@+id/cellBtn3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5"
+            android:layout_marginRight="4dp" />
+
+        <Button
+            android:id="@+id/cellBtn4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5"
+            android:layout_marginRight="4dp" />
+
+        <Button
+            android:id="@+id/cellBtn5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#0c0c0c">
+
+        <Button
+            android:id="@+id/cellBtn6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5"
+            android:layout_marginRight="4dp" />
+
+        <Button
+            android:id="@+id/cellBtn7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5"
+            android:layout_marginRight="4dp" />
+
+        <Button
+            android:id="@+id/cellBtn8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="50sp"
+            android:background="#e5e5e5" />
+
+    </LinearLayout>
+
+</LinearLayout>

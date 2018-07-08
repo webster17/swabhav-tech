@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">App developed by Santosh</string>
+    <string name="welcome_text">Welcome in first app!</string>
+    <string name="btn_click">Click here</string>
+    <string name="txt_name">Enter your name</string>
+    <string name="logo">Swabhav Logo</string>
+    <string name="toast_notify">This is the toast notification</string>
+</resources>

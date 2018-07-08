@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Emp Intent</string>
+    <string name="btn_detail">View Details</string>
+    <string name="btn_gender">Select your gender</string>
+    <string name="view_gender_name">Gender: </string>
+    <string name="gener_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_another">Another</string>
+    <string name="detail_activity_name">Details</string>
+    <string name="label_name">Name:</string>
+    <string name="label_qualification">Qualification:</string>
+    <string name="btn_contact">View Contact List</string>
+</resources>
