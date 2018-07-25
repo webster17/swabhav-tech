@@ -1,0 +1,4 @@
+https://codelabs.developers.google.com/codelabs/material-design-style/index.html?index=..%2F..%2Findex#2
+https://developer.android.com/training/data-storage/shared-preferences#java
+https://developer.android.com/guide/topics/ui/floating-action-button
+https://developer.android.com/studio/write/vector-asset-studio

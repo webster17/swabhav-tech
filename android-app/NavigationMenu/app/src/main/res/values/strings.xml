@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Navigation Menu</string>
+    <string name="firstMenuTitle">First Menu Title</string>
+    <string name="secondMenuTitle">Second Menu Title</string>
+    <string name="thirdMenuTitle">Third Menu Title</string>
+    <string name="fourthMenuTitle">Fourth Menu Title</string>
+    <string name="fifthMenuTitle">Fifth Menu Title</string>
+
+    <string name="navigation_drawer_open">Drawer Open</string>
+    <string name="navigation_drawer_close">Drawer Close</string>
+</resources>

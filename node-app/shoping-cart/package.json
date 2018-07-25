@@ -1,0 +1,21 @@
+{
+  "name": "shoping-cart",
+  "version": "1.0.0",
+  "description": "demo shoping cart example",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app"
+  },
+  "keywords": [
+    "shoping-cart"
+  ],
+  "author": "Santosh Rajpoot",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-group-routes": "^1.1.0",
+    "mongoose": "^5.2.4",
+    "nodemon": "^1.18.2"
+  }
+}

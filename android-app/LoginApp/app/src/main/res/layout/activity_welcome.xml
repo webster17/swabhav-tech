@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".WelcomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#b4581f">
+
+        <LinearLayout
+            android:id="@+id/profileCard"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#1fa7b4"
+            android:gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_marginTop="60dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:background="@drawable/profile_bg">
+            <ImageView
+                android:src="@drawable/user"
+                android:layout_width="140dp"
+                android:layout_height="140dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/welcomeUser"
+            android:layout_marginHorizontal="60dp"
+            android:layout_marginTop="245dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/welcomeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#1f7db4"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:text="Welcome,"/>
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_below="@+id/welcomeText"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#1facb4"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/welcomeUser"
+            android:gravity="center|center_horizontal">
+
+
+            <Button
+                android:id="@+id/backToLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:paddingHorizontal="25dp"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:background="@drawable/ripple_effect"
+                android:text="Logout"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

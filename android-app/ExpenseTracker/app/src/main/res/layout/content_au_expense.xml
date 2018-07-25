@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AddExpenseActivity"
+    tools:showIn="@layout/activity_add_expense">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="100dp"
+        android:layout_marginHorizontal="60dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/rupees"
+                android:inputType="numberDecimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/expensed_rs"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/description"
+                android:inputType="textCapSentences"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:longClickable="false"
+                android:hint="Date"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/category"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:spinnerMode="dialog"
+            android:prompt="@string/title_category_item"
+            android:entries="@array/category_item">
+
+        </android.support.v7.widget.AppCompatSpinner>
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

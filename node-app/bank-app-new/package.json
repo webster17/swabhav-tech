@@ -1,0 +1,20 @@
+{
+  "name": "com.swabhav.bank",
+  "version": "1.0.0",
+  "description": "Demo project for bank simulation",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-group-routes": "^1.1.0",
+    "mongoose": "^5.2.4",
+    "nodemon": "^1.18.3",
+    "path": "^0.12.7"
+  }
+}

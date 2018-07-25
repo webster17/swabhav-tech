@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RND Facts</string>
+    <string name="searchBtn">Search</string>
+    <string name="inputNumberLabel">Number:</string>
+    <string name="inputNumberHint">eg. 40</string>
+    <string name="indexHeader">#</string>
+    <string name="factHeader">Random Facts</string>
+</resources>

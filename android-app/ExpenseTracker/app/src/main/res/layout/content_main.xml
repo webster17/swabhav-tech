@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".MainActivity"
+        tools:showIn="@layout/activity_main">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/dashboard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gradient_bg"
+                android:clipToPadding="false"
+                android:elevation="10dp"
+                android:paddingHorizontal="0dp"
+                android:paddingVertical="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="10dp"
+                    android:paddingHorizontal="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center|center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="39dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/wallet"
+                            android:textColor="#FFF"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/totalExpense"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="435"
+                            android:textColor="#fff"
+                            android:textSize="23sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="39dp"
+                            android:layout_height="35dp"
+                            android:background="@drawable/all_card"
+                            android:textColor="#FFF"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/allExpenseCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="23"
+                            android:textColor="#fff"
+                            android:textSize="23sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/gradient_recycler_bg"
+                android:elevation="20dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/itemRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    tools:listitem="@layout/expense_item_element" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

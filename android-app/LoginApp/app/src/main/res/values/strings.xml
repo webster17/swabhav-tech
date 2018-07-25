@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Login App</string>
+    <string name="title_activity_welcome">Home</string>
+    <string name="action_settings">Settings</string>
+</resources>

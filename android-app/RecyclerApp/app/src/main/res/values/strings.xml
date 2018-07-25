@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Recycler App</string>
+    <string name="changeDataSet">Change Data Set</string>
+</resources>
